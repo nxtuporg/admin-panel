@@ -14,19 +14,19 @@ const Events = () => {
     return(
         <div className="bg-amber-50">
 
-            <div className="h-[45vh] w-full bg-slate-100 flex flex-row ">
+            <div className="h-[45vh] w-full bg-slate-100 flex flex-col md:flex-row items-center md:items-start ">
 
-                <div className="items-center justify-center flex pl-12 p-8 h-full w-[25vw] bg-slate-200 "> <img className="h-[90%]" src="https://ukfcet.ac.in/education4.0/wp-content/uploads/2021/04/hackathon.jpg"></img> </div>
-                <div className="p-6 mt-12 w-[75vw] flex  justify-evenly flex-col">
+                <div className="items-center justify-center flex pl-12 p-8 h-full w-[370px] lg:w-[390px] bg-slate-200 "> <img className="h-[90%]" src="https://ukfcet.ac.in/education4.0/wp-content/uploads/2021/04/hackathon.jpg"></img> </div>
+                <div className="  mt:p-6 mt-6 lg:mt-12 w-[90vw] sm:w-[75vw] flex   flex-col justify-start mb-16 lg:justify-evenly lg:mb-2">
                     
-                    <div><h1 className="text-3xl font-semibold p-2 font-sans bg-gray-200/50"><span className="font-bold underline">Title</span>: NST web dev hackathon</h1></div>
-                    <div><h1 className="text-2xl font-semibold p-2 font-sans bg-gray-200/50"><span className="font-bold underline">Short Description</span>: In this hackathon participants are going to get 24 hours time to make a project from a theme selected from the provided ones and will submit that on the platform nxtup. If you face any difficulty you can solve that yourself then maybe using gpt or anything, if you would be unable to solve your own probelm you can quit</h1></div>
+                    <div><h1 className="text-lg sm:text-2xl lg:text-3xl font-semibold p-2 font-sans mb-2 bg-gray-200/50"><span className="font-bold underline">Title</span>: NST web dev hackathon</h1></div>
+                    <div ><h1 className="text-base sm:text-xl lg:text-2xl font-semibold p-2 font-sans bg-gray-200/50"><span className="font-bold underline">Short Description</span>: In this hackathon participants are going to get 24 hours time to make a project from a theme selected from the provided ones and will submit that on the platform nxtup. If you face any difficulty you can solve that yourself then maybe using gpt or anything, if you would be unable to solve your own probelm you can quit</h1></div>
                 </div>
 
 
             </div>
 
-            <div className="w-[90vw] mx-auto p-12 bg-yellow-50/10">
+            <div className="w-full sm:w-[90vw] mx-auto p-1 sm:p-12 bg-yellow-50/10 md:mt-0 mt-[38vh]">
             
             <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
 
