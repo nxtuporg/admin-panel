@@ -279,7 +279,7 @@ const Register = () => {
             + Add input
           </button>
           <div className="w-[26rem] opacity-0 transition-all duration-200 h-[2px] bg-slate-800" />
-          <div className="flex flex-col gap-[0.5rem] h-0 overflow-hidden bg-slate-900 w-[26rem] rounded-bl-md rounded-br-md transition-all duration-300">
+          <div className="flex text-white flex-col gap-[0.5rem] h-0 overflow-hidden bg-slate-900 w-[26rem] rounded-bl-md rounded-br-md transition-all duration-300">
             {[
               {
                 type: "Text",
