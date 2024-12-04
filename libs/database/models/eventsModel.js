@@ -12,6 +12,10 @@ const eventSchema = new mongoose.Schema({
   description: {
     type: String,
   },
+  registrationForm: {
+    type: Object,
+    required: false,
+  },
   clubs: [
     {
       type: mongoose.Schema.Types.ObjectId,

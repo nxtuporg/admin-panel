@@ -5,10 +5,11 @@ import React, { useEffect, useState } from "react";
 const Register = () => {
   // var router = useRouter();
   // var params = useParams();
-  // var searchParams = useSearchParams();
+  var searchParams = useSearchParams();
   useEffect(() => {
     // var paramss = params.event;
-    // var eventid = searchParams.get("event");
+    var eventid = searchParams.get("id");
+    console.log(eventid);
     //for the api part
     // var {data:axres} = axios.post("/api/login",{name:"",pass:""})
   }, []);
