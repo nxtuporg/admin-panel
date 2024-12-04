@@ -3,6 +3,7 @@ import { useEffect } from "react";
 const Events = () => {
 
     useEffect(()=>{
+
         const Quill = window.Quill
         if(Quill){
         const quill = new Quill("#editor", {
@@ -54,7 +55,9 @@ const Events = () => {
     
 
     return(
+    
         <div className="bg-amber-50 text-black">
+
 
             <div className="h-[45vh] w-full bg-slate-100 flex flex-col md:flex-row items-center md:items-start ">
 
@@ -104,7 +107,6 @@ Under his leadership, Newton School has seen rapid growth, and it has successful
             </div>
 
 
-            <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 
 
             </div>

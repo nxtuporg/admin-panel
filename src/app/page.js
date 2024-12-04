@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 const Home = () => {
   const router = useRouter();
   return (
-    <>
+    <div>
       <nav className="bg-gray-800 text-white">
         <div className="flex justify-between items-center p-4">
           <h1 className="text-xl font-semibold">Dashboard</h1>
@@ -204,7 +204,7 @@ const Home = () => {
           </div>
         </div> */}
       </div>
-    </>
+    </div>
   );
 };
 
