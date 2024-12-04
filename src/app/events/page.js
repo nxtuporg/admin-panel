@@ -9,7 +9,7 @@ const Events = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   // const [date, setDate] = useState("");
-  const [image, setImage] = useState("https://google.com");
+  const [image, setImage] = useState("https://loremflickr.com/200/200?random=1");
   const [eventBody, seteventBody] = useState("");
 
   useEffect(() => {
@@ -21,7 +21,6 @@ const Events = () => {
         theme: "snow",
       });
     }
-  }, []);
   }, []);
 
   async function handleClick() {
@@ -81,6 +80,24 @@ const Events = () => {
     }
     // };
   }
+  const handleUploadClick = () => {
+    document.getElementById("imageInput").click();
+  };
+
+  const handleImageChange = (event) => {
+
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedImage(URL.createObjectURL(file));
+      alert("Image uploaded successfully!");
+    }
+    var form = new FormData()
+    form.append("file",file)
+    var {data:axres} = axios.post("/api/imageupload",form)
+
+    // fetch('/api/imageupload', { method: 'POST', body:  });
+
+  };
 
   return (
     <div className="bg-amber-50 text-black">
@@ -89,8 +106,9 @@ const Events = () => {
           {" "}
           <img
             className="h-[90%]"
-            src="https://ukfcet.ac.in/education4.0/wp-content/uploads/2021/04/hackathon.jpg"
+            src="https://loremflickr.com/200/200?random=1"
           ></img>{" "}
+
         </div>
         <div className="  md:p-6 mt-1 w-[90vw] sm:w-[75vw] flex   flex-col justify-around mb-16  lg:mb-2 gap-6">
           <button
