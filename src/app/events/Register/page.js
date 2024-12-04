@@ -1,20 +1,38 @@
 "use client";
 
+import axios from "axios";
 import { useParams, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 const Register = () => {
   // var router = useRouter();
   // var params = useParams();
   var searchParams = useSearchParams();
+  const [title, settitle] = useState("");
+  const [desc, setdesc] = useState("");
+  const [alluserComponents, setalluserComponents] = useState([]);
   useEffect(() => {
     // var paramss = params.event;
-    var eventid = searchParams.get("id");
+
     console.log(eventid);
     //for the api part
-    // var {data:axres} = axios.post("/api/login",{name:"",pass:""})
   }, []);
+  function submitRegisterForm() {
+    var id = searchParams.get("id");
+    var { data: axres } = axios.post("/api/addRegistrationForm", {
+      id,
+      title,
+      desc,
+      sequence: alluserComponents,
+    });
+    if (axres.status) {
+      toast.success(axres.message);
+    } else {
+      toast.error(axres.message);
+    }
+  }
 
-  const [alluserComponents, setalluserComponents] = useState([]);
+  // console.log(JSON.stringify(alluserComponents));
   return (
     <div className="flex justify-center ">
       <div className="p-[1rem]">
@@ -64,13 +82,31 @@ const Register = () => {
                       <input
                         type="text"
                         placeholder={el?.inputName}
-                        value={el.value}
-                        onChange={(el) => el.value}
+                        value={el?.inputName || ""}
+                        onChange={(curel) => {
+                          setalluserComponents((prev) =>
+                            prev.map((ell) =>
+                              ell.currentId == el.currentId
+                                ? { ...ell, inputName: curel.target.value }
+                                : ell
+                            )
+                          );
+                        }}
                         className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
                       />
                       <input
                         type="text"
                         placeholder={el?.placeholder}
+                        value={el?.placeholder || ""}
+                        onChange={(curel) => {
+                          setalluserComponents((prev) =>
+                            prev.map((ell) =>
+                              ell.currentId == el.currentId
+                                ? { ...ell, placeholder: curel.target.value }
+                                : ell
+                            )
+                          );
+                        }}
                         className="py-[0.5rem] px-[1rem] text-black w-[26rem] rounded-md"
                       />
                     </div>
@@ -89,12 +125,38 @@ const Register = () => {
 
                       <input
                         type="text"
-                        placeholder={el?.inputName}
+                        value={el?.inputName || ""}
+                        onChange={(curel) => {
+                          setalluserComponents((prev) =>
+                            prev.map((ell) =>
+                              ell.currentId == el.currentId
+                                ? { ...ell, inputName: curel.target.value }
+                                : ell
+                            )
+                          );
+                        }}
                         className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
                       />
                       <div className="flex gap-[0.5rem]">
                         <textarea
                           type="text"
+                          value={el?.placeholder || ""}
+                          onChange={(curel) => {
+                            setalluserComponents((prev) =>
+                              prev.map((ell) =>
+                                ell.currentId == el.currentId
+                                  ? {
+                                      ...ell,
+                                      placeholder: curel.target.value.includes(
+                                        ","
+                                      )
+                                        ? curel.target.value.split(",")
+                                        : [curel.target.value],
+                                    }
+                                  : ell
+                              )
+                            );
+                          }}
                           className=" text-black  rounded-md w-[26rem] px-[1rem] py-[0.5rem]"
                           placeholder="Radio button values (',' seperated values)"
                         />
@@ -108,12 +170,41 @@ const Register = () => {
                     <div className="flex flex-col gap-[0.5rem]">
                       <input
                         type="text"
-                        placeholder={el?.inputName}
+                        value={el?.inputName || ""}
+                        onChange={(curel) => {
+                          setalluserComponents((prev) =>
+                            prev.map((ell) =>
+                              ell.currentId == el.currentId
+                                ? {
+                                    ...ell,
+                                    inputName: curel.target.value,
+                                  }
+                                : ell
+                            )
+                          );
+                        }}
                         className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
                       />
                       <div className="flex gap-[0.5rem]">
                         <textarea
                           type="text"
+                          value={el?.placeholder || ""}
+                          onChange={(curel) => {
+                            setalluserComponents((prev) =>
+                              prev.map((ell) =>
+                                ell.currentId == el.currentId
+                                  ? {
+                                      ...ell,
+                                      placeholder: curel.target.value.includes(
+                                        ","
+                                      )
+                                        ? curel.target.value.split(",")
+                                        : [curel.target.value],
+                                    }
+                                  : ell
+                              )
+                            );
+                          }}
                           className=" text-black  rounded-md w-[26rem] px-[1rem] py-[0.5rem]"
                           placeholder="Select option values (',' seperated values)"
                         />
@@ -127,14 +218,43 @@ const Register = () => {
                     <div className="flex flex-col gap-[0.5rem]">
                       <input
                         type="text"
-                        placeholder={el?.inputName}
+                        value={el?.inputName || ""}
+                        onChange={(curel) => {
+                          setalluserComponents((prev) =>
+                            prev.map((ell) =>
+                              ell.currentId == el.currentId
+                                ? {
+                                    ...ell,
+                                    inputName: curel.target.value,
+                                  }
+                                : ell
+                            )
+                          );
+                        }}
                         className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
                       />
                       <div className="flex gap-[0.5rem]">
                         <textarea
                           type="text"
                           className="text-black rounded-md w-[26rem] px-[1rem] py-[0.5rem]"
-                          placeholder="Checkbox option values (',' seperated values)"
+                          // placeholder="Checkbox option values (',' seperated values)"
+                          value={el?.placeholder || ""}
+                          onChange={(curel) => {
+                            setalluserComponents((prev) =>
+                              prev.map((ell) =>
+                                ell.currentId == el.currentId
+                                  ? {
+                                      ...ell,
+                                      placeholder: curel.target.value.includes(
+                                        ","
+                                      )
+                                        ? curel.target.value.split(",")
+                                        : [curel.target.value],
+                                    }
+                                  : ell
+                              )
+                            );
+                          }}
                         />
                       </div>
                     </div>
@@ -176,11 +296,13 @@ const Register = () => {
               {
                 type: "Select",
                 inputName: "Example Select input title (Editable)",
+                placeholder: "Select option values (',' seperated values)",
                 currentId: Math.random() * 99999,
               },
               {
                 type: "Checkbox",
                 inputName: "Example Checkbox input title (Editable)",
+                placeholder: "Checkbox option values (',' seperated values)",
                 currentId: Math.random() * 99999,
               },
             ].map((el) => (
