@@ -18,6 +18,10 @@ const eventSchema = new mongoose.Schema({
   image: {
     type: String,
   },
+  registrationForm: {
+    type: Object,
+    required: false,
+  },
   clubs: [
     {
       type: mongoose.Schema.Types.ObjectId,
