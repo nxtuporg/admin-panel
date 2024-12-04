@@ -22,7 +22,7 @@ const Events = () => {
       const quill = new Quill("#editor", {
         theme: "snow",
       });
-    }
+    };
   }, []);
 
   async function handleClick() {
