@@ -54,88 +54,90 @@ const Register = () => {
               if (el.type == "Text") {
                 return (
                   <>
-                  <div className="flex flex-col gap-[0.5rem] py-[0.5rem]">
-                    {/* <h3
+                    <div className="flex flex-col gap-[0.5rem] py-[0.5rem]">
+                      {/* <h3
                       contentEditable
                       className="w-[26rem] outline-none focus:border-white focus:outline-[1px] focus:outline-solid focus:outline-white pr-[0.5rem] rounded-sm"
                     >
                       {el?.inputName}
                     </h3> */}
-                    <input
-                      type="text"
-                      placeholder={el?.inputName}
-                      className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
-                    />
-                    <input
-                      type="text"
-                      placeholder={el?.placeholder}
-                      className="py-[0.5rem] px-[1rem] text-black w-[26rem] rounded-md"
-                    />
-                  </div>
+                      <input
+                        type="text"
+                        placeholder={el?.inputName}
+                        value={el.value}
+                        onChange={(el) => el.value}
+                        className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
+                      />
+                      <input
+                        type="text"
+                        placeholder={el?.placeholder}
+                        className="py-[0.5rem] px-[1rem] text-black w-[26rem] rounded-md"
+                      />
+                    </div>
                   </>
                 );
               } else if (el.type == "Radio") {
                 return (
                   <>
-                  <div className="flex flex-col gap-[0.5rem]">
-                    {/* <h3
+                    <div className="flex flex-col gap-[0.5rem]">
+                      {/* <h3
                       contentEditable
                       className="w-[26rem] outline-none focus:border-white focus:outline-[1px] focus:outline-solid focus:outline-white pr-[0.5rem] rounded-sm"
                     >
                       {el?.inputName}
                     </h3> */}
 
-                    <input
-                      type="text"
-                      placeholder={el?.inputName}
-                      className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
-                    />
-                    <div className="flex gap-[0.5rem]">
-                      <textarea
+                      <input
                         type="text"
-                        className=" text-black  rounded-md w-[26rem] px-[1rem] py-[0.5rem]"
-                        placeholder="Radio button values (',' seperated values)"
+                        placeholder={el?.inputName}
+                        className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
                       />
+                      <div className="flex gap-[0.5rem]">
+                        <textarea
+                          type="text"
+                          className=" text-black  rounded-md w-[26rem] px-[1rem] py-[0.5rem]"
+                          placeholder="Radio button values (',' seperated values)"
+                        />
+                      </div>
                     </div>
-                  </div>
                   </>
                 );
               } else if (el.type == "Select") {
                 return (
                   <>
-                  <div className="flex flex-col gap-[0.5rem]">
-                    <input
-                      type="text"
-                      placeholder={el?.inputName}
-                      className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
-                    />
-                    <div className="flex gap-[0.5rem]">
-                      <textarea
+                    <div className="flex flex-col gap-[0.5rem]">
+                      <input
                         type="text"
-                        className=" text-black  rounded-md w-[26rem] px-[1rem] py-[0.5rem]"
-                        placeholder="Select option values (',' seperated values)"
+                        placeholder={el?.inputName}
+                        className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
                       />
+                      <div className="flex gap-[0.5rem]">
+                        <textarea
+                          type="text"
+                          className=" text-black  rounded-md w-[26rem] px-[1rem] py-[0.5rem]"
+                          placeholder="Select option values (',' seperated values)"
+                        />
+                      </div>
                     </div>
-                  </div>
                   </>
                 );
               } else if (el.type == "Checkbox") {
                 return (
                   <>
-                  <div className="flex flex-col gap-[0.5rem]">
-                    <input
-                      type="text"
-                      placeholder={el?.inputName}
-                      className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
-                    />
-                    <div className="flex gap-[0.5rem]">
-                      <textarea
+                    <div className="flex flex-col gap-[0.5rem]">
+                      <input
                         type="text"
-                        className="text-black rounded-md w-[26rem] px-[1rem] py-[0.5rem]"
-                        placeholder="Checkbox option values (',' seperated values)"
+                        placeholder={el?.inputName}
+                        className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
                       />
+                      <div className="flex gap-[0.5rem]">
+                        <textarea
+                          type="text"
+                          className="text-black rounded-md w-[26rem] px-[1rem] py-[0.5rem]"
+                          placeholder="Checkbox option values (',' seperated values)"
+                        />
+                      </div>
                     </div>
-                  </div>
                   </>
                 );
               }
