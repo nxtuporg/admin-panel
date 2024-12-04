@@ -22,7 +22,6 @@ const Events = () => {
       });
     }
   }, []);
-  }, []);
 
   async function handleClick() {
     const quill = new Quill("#editor");
@@ -184,4 +183,3 @@ const Events = () => {
 };
 
 export default Events;
-
