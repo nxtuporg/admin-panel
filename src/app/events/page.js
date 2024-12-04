@@ -66,7 +66,7 @@ const Events = () => {
     }
     var form = new FormData()
     form.append("file",file)
-    var {data:axres} = axios.post("/api/imageupload",form)
+    var {data:axres} = axios.post("http://localhost:5500/api/uploadImage",form)
 
     // fetch('/api/imageupload', { method: 'POST', body:  });
 
@@ -79,7 +79,7 @@ const Events = () => {
           <div className="h-[80%] w-[80%] border-2 border-black border-dashed flex items-center justify-center bg-white">
             {selectedImage ? (
               <img
-                className="z-3 object-contain "
+                className="z-3 object-contain h-full w-full"
                 src={selectedImage}
                 alt="Uploaded preview"
               />
@@ -90,8 +90,8 @@ const Events = () => {
               onClick={handleUploadClick}
               className=" hover:scale-95 cursor-pointer  h-16"
             >
-                
-              <img className="h-20 border-gray-200 border-2" src="https://t3.ftcdn.net/jpg/04/92/94/70/360_F_492947093_LOGkIRfXScJs3PS2tgjJ4lGR74B0hs7Z.jpg"></img>
+                {selectedImage?(<></>):( <img className="h-20 border-gray-200 border-2" src="https://t3.ftcdn.net/jpg/04/92/94/70/360_F_492947093_LOGkIRfXScJs3PS2tgjJ4lGR74B0hs7Z.jpg"></img>)}
+             
 
             </button>
             <input
@@ -105,12 +105,42 @@ const Events = () => {
         </div>
 
         <div className="md:p-6 mt-1 w-[90vw] sm:w-[75vw] flex flex-col justify-around mb-16 lg:mb-2 gap-6">
-          <button
+
+          <div className="flex flex-row flex-wrap gap-2">
+          <input
+            type="text"
+            placeholder="Date"
+            className="w-32 ml-5 p-3 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
+      focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
+          />
+                    <input
+            type="text"
+            placeholder="Time"
+            className="w-32 ml-5 p-3 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
+      focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
+          />
+                    <input
+            type="text"
+            placeholder="Location"
+            className="w-52 ml-5 p-3 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
+      focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
+          />
+<div className="flex flex-row">
+<button
             onClick={handleClick}
-            className="bg-purple-500 self-end mr-6 mt-8 focus:bg-purple-500/90 hover:scale-95 md:mt-1 text-white w-20 h-10 rounded-xl font-semibold"
+            className="bg-purple-500 my-auto self-end right-4 absolute mt-8 focus:bg-purple-500/90 hover:scale-95 md:mt-1 text-white w-20 h-10 rounded-xl font-semibold"
           >
             Add
           </button>
+          <button
+            onClick={handleClick}
+            className="bg-purple-500 my-auto self-end right-28 absolute  mt-8 focus:bg-purple-500/90 hover:scale-95 md:mt-1 text-white w-20 h-10 rounded-xl font-semibold"
+          >
+            Live it
+          </button>
+          </div>
+</div>
+          
           <input
             type="text"
             placeholder="Enter the title"
