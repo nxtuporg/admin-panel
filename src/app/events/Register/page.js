@@ -1,19 +1,37 @@
 "use client";
 
+import axios from "axios";
 import { useParams, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 const Register = () => {
   // var router = useRouter();
   // var params = useParams();
-  // var searchParams = useSearchParams();
+  var searchParams = useSearchParams();
+  const [title, settitle] = useState("");
+  const [desc, setdesc] = useState("");
+  const [alluserComponents, setalluserComponents] = useState([]);
   useEffect(() => {
     // var paramss = params.event;
-    // var eventid = searchParams.get("event");
+    // console.log(eventid);
     //for the api part
-    // var {data:axres} = axios.post("/api/login",{name:"",pass:""})
   }, []);
+  function submitRegisterForm() {
+    var id = searchParams.get("id");
+    var { data: axres } = axios.post("/api/addRegistrationForm", {
+      id,
+      title,
+      desc,
+      sequence: alluserComponents,
+    });
+    if (axres.status) {
+      toast.success(axres.message);
+    } else {
+      toast.error(axres.message);
+    }
+  }
 
-  const [alluserComponents, setalluserComponents] = useState([]);
+  // console.log(JSON.stringify(alluserComponents));
   return (
     <div className="flex justify-center ">
       <div className="p-[1rem]">
@@ -52,82 +70,194 @@ const Register = () => {
             {alluserComponents.map((el) => {
               if (el.type == "Text") {
                 return (
-                  <div className="flex flex-col gap-[0.5rem] py-[0.5rem]">
-                    {/* <h3
+                  <>
+                    <div className="flex flex-col gap-[0.5rem] py-[0.5rem]">
+                      {/* <h3
                       contentEditable
                       className="w-[26rem] outline-none focus:border-white focus:outline-[1px] focus:outline-solid focus:outline-white pr-[0.5rem] rounded-sm"
                     >
                       {el?.inputName}
                     </h3> */}
-                    <input
-                      type="text"
-                      placeholder={el?.inputName}
-                      className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
-                    />
-                    <input
-                      type="text"
-                      placeholder={el?.placeholder}
-                      className="py-[0.5rem] px-[1rem] text-black w-[26rem] rounded-md"
-                    />
-                  </div>
+                      <input
+                        type="text"
+                        placeholder={el?.inputName}
+                        value={el?.inputName || ""}
+                        onChange={(curel) => {
+                          setalluserComponents((prev) =>
+                            prev.map((ell) =>
+                              ell.currentId == el.currentId
+                                ? { ...ell, inputName: curel.target.value }
+                                : ell
+                            )
+                          );
+                        }}
+                        className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
+                      />
+                      <input
+                        type="text"
+                        placeholder={el?.placeholder}
+                        value={el?.placeholder || ""}
+                        onChange={(curel) => {
+                          setalluserComponents((prev) =>
+                            prev.map((ell) =>
+                              ell.currentId == el.currentId
+                                ? { ...ell, placeholder: curel.target.value }
+                                : ell
+                            )
+                          );
+                        }}
+                        className="py-[0.5rem] px-[1rem] text-black w-[26rem] rounded-md"
+                      />
+                    </div>
+                  </>
                 );
               } else if (el.type == "Radio") {
                 return (
-                  <div className="flex flex-col gap-[0.5rem]">
-                    {/* <h3
+                  <>
+                    <div className="flex flex-col gap-[0.5rem]">
+                      {/* <h3
                       contentEditable
                       className="w-[26rem] outline-none focus:border-white focus:outline-[1px] focus:outline-solid focus:outline-white pr-[0.5rem] rounded-sm"
                     >
                       {el?.inputName}
                     </h3> */}
 
-                    <input
-                      type="text"
-                      placeholder={el?.inputName}
-                      className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
-                    />
-                    <div className="flex gap-[0.5rem]">
-                      <textarea
+                      <input
                         type="text"
-                        className=" text-black  rounded-md w-[26rem] px-[1rem] py-[0.5rem]"
-                        placeholder="Radio button values (',' seperated values)"
+                        value={el?.inputName || ""}
+                        onChange={(curel) => {
+                          setalluserComponents((prev) =>
+                            prev.map((ell) =>
+                              ell.currentId == el.currentId
+                                ? { ...ell, inputName: curel.target.value }
+                                : ell
+                            )
+                          );
+                        }}
+                        className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
                       />
+                      <div className="flex gap-[0.5rem]">
+                        <textarea
+                          type="text"
+                          value={el?.placeholder || ""}
+                          onChange={(curel) => {
+                            setalluserComponents((prev) =>
+                              prev.map((ell) =>
+                                ell.currentId == el.currentId
+                                  ? {
+                                      ...ell,
+                                      placeholder: curel.target.value.includes(
+                                        ","
+                                      )
+                                        ? curel.target.value.split(",")
+                                        : [curel.target.value],
+                                    }
+                                  : ell
+                              )
+                            );
+                          }}
+                          className=" text-black  rounded-md w-[26rem] px-[1rem] py-[0.5rem]"
+                          placeholder="Radio button values (',' seperated values)"
+                        />
+                      </div>
                     </div>
-                  </div>
+                  </>
                 );
               } else if (el.type == "Select") {
                 return (
-                  <div className="flex flex-col gap-[0.5rem]">
-                    <input
-                      type="text"
-                      placeholder={el?.inputName}
-                      className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
-                    />
-                    <div className="flex gap-[0.5rem]">
-                      <textarea
+                  <>
+                    <div className="flex flex-col gap-[0.5rem]">
+                      <input
                         type="text"
-                        className=" text-black  rounded-md w-[26rem] px-[1rem] py-[0.5rem]"
-                        placeholder="Select option values (',' seperated values)"
+                        value={el?.inputName || ""}
+                        onChange={(curel) => {
+                          setalluserComponents((prev) =>
+                            prev.map((ell) =>
+                              ell.currentId == el.currentId
+                                ? {
+                                    ...ell,
+                                    inputName: curel.target.value,
+                                  }
+                                : ell
+                            )
+                          );
+                        }}
+                        className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
                       />
+                      <div className="flex gap-[0.5rem]">
+                        <textarea
+                          type="text"
+                          value={el?.placeholder || ""}
+                          onChange={(curel) => {
+                            setalluserComponents((prev) =>
+                              prev.map((ell) =>
+                                ell.currentId == el.currentId
+                                  ? {
+                                      ...ell,
+                                      placeholder: curel.target.value.includes(
+                                        ","
+                                      )
+                                        ? curel.target.value.split(",")
+                                        : [curel.target.value],
+                                    }
+                                  : ell
+                              )
+                            );
+                          }}
+                          className=" text-black  rounded-md w-[26rem] px-[1rem] py-[0.5rem]"
+                          placeholder="Select option values (',' seperated values)"
+                        />
+                      </div>
                     </div>
-                  </div>
+                  </>
                 );
               } else if (el.type == "Checkbox") {
                 return (
-                  <div className="flex flex-col gap-[0.5rem]">
-                    <input
-                      type="text"
-                      placeholder={el?.inputName}
-                      className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
-                    />
-                    <div className="flex gap-[0.5rem]">
-                      <textarea
+                  <>
+                    <div className="flex flex-col gap-[0.5rem]">
+                      <input
                         type="text"
-                        className="text-black rounded-md w-[26rem] px-[1rem] py-[0.5rem]"
-                        placeholder="Checkbox option values (',' seperated values)"
+                        value={el?.inputName || ""}
+                        onChange={(curel) => {
+                          setalluserComponents((prev) =>
+                            prev.map((ell) =>
+                              ell.currentId == el.currentId
+                                ? {
+                                    ...ell,
+                                    inputName: curel.target.value,
+                                  }
+                                : ell
+                            )
+                          );
+                        }}
+                        className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
                       />
+                      <div className="flex gap-[0.5rem]">
+                        <textarea
+                          type="text"
+                          className="text-black rounded-md w-[26rem] px-[1rem] py-[0.5rem]"
+                          // placeholder="Checkbox option values (',' seperated values)"
+                          value={el?.placeholder || ""}
+                          onChange={(curel) => {
+                            setalluserComponents((prev) =>
+                              prev.map((ell) =>
+                                ell.currentId == el.currentId
+                                  ? {
+                                      ...ell,
+                                      placeholder: curel.target.value.includes(
+                                        ","
+                                      )
+                                        ? curel.target.value.split(",")
+                                        : [curel.target.value],
+                                    }
+                                  : ell
+                              )
+                            );
+                          }}
+                        />
+                      </div>
                     </div>
-                  </div>
+                  </>
                 );
               }
             })}
@@ -165,11 +295,13 @@ const Register = () => {
               {
                 type: "Select",
                 inputName: "Example Select input title (Editable)",
+                placeholder: "Select option values (',' seperated values)",
                 currentId: Math.random() * 99999,
               },
               {
                 type: "Checkbox",
                 inputName: "Example Checkbox input title (Editable)",
+                placeholder: "Checkbox option values (',' seperated values)",
                 currentId: Math.random() * 99999,
               },
             ].map((el) => (
@@ -184,6 +316,12 @@ const Register = () => {
               </div>
             ))}
           </div>
+          <button
+            className="px-[1rem] py-[0.8rem] bg-slate-900 w-[26rem] rounded-tl-md rounded-tr-md cursor-pointer mt-[1rem]"
+            onClick={submitRegisterForm}
+          >
+            Submit
+          </button>
         </div>
       </div>
     </div>

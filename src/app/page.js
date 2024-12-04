@@ -32,7 +32,7 @@ const Home = () => {
             </a>
             <a
               className="px-3 py-1 text-sm font-medium text-white hover:underline cursor-pointer"
-              onClick={() => router.push("/registration")}
+              onClick={() => router.push("/events/Register")}
             >
               Make a registration form
             </a>
@@ -99,7 +99,7 @@ const Home = () => {
               popularised in the 1960s with the release of Letraset sheets
               containing Lorem Ipsum passages, and more recently`,
             button: "Create a event registration form",
-            link: "/registration",
+            link: "/events/Register",
           },
           {
             title: "Add a new admin user",
@@ -116,6 +116,7 @@ const Home = () => {
           },
         ].map((el) => {
           return (
+            <>
             <div className="bg-slate-800 rounded-lg shadow-md overflow-hidden">
               <div className="p-6">
                 <h2 className="text-lg text-white font-bold mb-4 ">
@@ -130,6 +131,7 @@ const Home = () => {
                 </button>
               </div>
             </div>
+            </>
           );
         })}
 
