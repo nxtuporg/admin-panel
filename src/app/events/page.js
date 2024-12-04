@@ -54,7 +54,7 @@ const Events = () => {
     
 
     return(
-        <div className="bg-amber-50">
+        <div className="bg-amber-50 text-black">
 
             <div className="h-[45vh] w-full bg-slate-100 flex flex-col md:flex-row items-center md:items-start ">
 
