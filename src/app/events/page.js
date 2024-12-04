@@ -9,7 +9,9 @@ const Events = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   // const [date, setDate] = useState("");
-  const [image, setImage] = useState("https://loremflickr.com/200/200?random=1");
+  const [image, setImage] = useState(
+    "https://loremflickr.com/200/200?random=1"
+  );
   const [eventBody, seteventBody] = useState("");
 
   useEffect(() => {
@@ -85,18 +87,16 @@ const Events = () => {
   };
 
   const handleImageChange = (event) => {
-
     const file = event.target.files[0];
     if (file) {
       setSelectedImage(URL.createObjectURL(file));
       alert("Image uploaded successfully!");
     }
-    var form = new FormData()
-    form.append("file",file)
-    var {data:axres} = axios.post("/api/imageupload",form)
+    var form = new FormData();
+    form.append("file", file);
+    var { data: axres } = axios.post("/api/imageupload", form);
 
     // fetch('/api/imageupload', { method: 'POST', body:  });
-
   };
 
   return (
@@ -108,7 +108,6 @@ const Events = () => {
             className="h-[90%]"
             src="https://loremflickr.com/200/200?random=1"
           ></img>{" "}
-
         </div>
         <div className="  md:p-6 mt-1 w-[90vw] sm:w-[75vw] flex   flex-col justify-around mb-16  lg:mb-2 gap-6">
           <button
