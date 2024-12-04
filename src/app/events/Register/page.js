@@ -274,7 +274,7 @@ const Register = () => {
                 el.currentTarget.nextElementSibling.style.opacity = 1;
               }
             }}
-            className="px-[1rem] py-[0.8rem] bg-slate-900 w-[26rem] rounded-tl-md rounded-tr-md cursor-pointer "
+            className="px-[1rem] py-[0.8rem] bg-slate-900 w-[26rem] rounded-tl-md rounded-tr-md cursor-pointer text-white"
           >
             + Add input
           </button>
@@ -317,7 +317,7 @@ const Register = () => {
             ))}
           </div>
           <button
-            className="px-[1rem] py-[0.8rem] bg-slate-900 w-[26rem] rounded-tl-md rounded-tr-md cursor-pointer mt-[1rem]"
+            className="px-[1rem] py-[0.8rem] bg-slate-900 text-white w-[26rem] rounded-tl-md rounded-tr-md cursor-pointer mt-[1rem]"
             onClick={submitRegisterForm}
           >
             Submit
