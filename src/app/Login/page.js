@@ -2,10 +2,10 @@
 import axios from "axios";
 import React from "react";
 import { toast } from "react-toastify";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
-  // const router = useRouter();
+  const router = useRouter();
   async function submitLogin(email, pass) {
     try {
       var { data: axres } = await axios.post("/api/login", {
@@ -14,6 +14,7 @@ const Login = () => {
       });
       if (axres.status) {
         toast.success(axres.message);
+        router.push("/");
       } else {
         // console.log(axres);
         toast.error(axres.message);
