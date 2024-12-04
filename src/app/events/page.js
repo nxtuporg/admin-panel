@@ -14,16 +14,16 @@ const Events = () => {
   );
   const [eventBody, seteventBody] = useState("");
 
-  useEffect(() => {
-    // fetchData();
+  // useEffect(() => {
+  //   // fetchData();
 
-    const Quill = window.Quill;
-    if (Quill) {
-      const quill = new Quill("#editor", {
-        theme: "snow",
-      });
-    };
-  }, []);
+  //   const Quill = window.Quill;
+  //   if (Quill) {
+  //     const quill = new Quill("#editor", {
+  //       theme: "snow",
+  //     });
+  //   };
+  // }, []);
 
   async function handleClick() {
     const quill = new Quill("#editor");
