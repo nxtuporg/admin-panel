@@ -74,9 +74,9 @@ const Events = () => {
 
   return (
     <div className="bg-amber-50 text-black">
-      <div className="h-[45vh] w-full bg-slate-100 flex flex-col md:flex-row items-center md:items-start">
-        <div className="flex items-center justify-center pl-12 p-8 h-full w-[370px] lg:w-[390px] bg-slate-200">
-          <div className="h-[80%] w-[80%] border-2 border-black border-dashed flex items-center justify-center bg-white">
+      <div className="min-h-[45vh] w-full bg-slate-100 flex flex-col md:flex-row items-center md:items-start">
+        <div className="flex items-center justify-center pl-12 p-8 min-h-[45vh] w-[370px] lg:w-[390px] bg-slate-200">
+          <div className="h-[80%] w-[80%] border-2 h-[32vh] border-black border-dashed flex items-center justify-center bg-white">
             {selectedImage ? (
               <img
                 className="z-3 object-contain h-full w-full"
