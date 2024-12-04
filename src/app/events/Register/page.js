@@ -13,8 +13,7 @@ const Register = () => {
   const [alluserComponents, setalluserComponents] = useState([]);
   useEffect(() => {
     // var paramss = params.event;
-
-    console.log(eventid);
+    // console.log(eventid);
     //for the api part
   }, []);
   function submitRegisterForm() {
@@ -317,6 +316,12 @@ const Register = () => {
               </div>
             ))}
           </div>
+          <button
+            className="px-[1rem] py-[0.8rem] bg-slate-900 w-[26rem] rounded-tl-md rounded-tr-md cursor-pointer mt-[1rem]"
+            onClick={submitRegisterForm}
+          >
+            Submit
+          </button>
         </div>
       </div>
     </div>
