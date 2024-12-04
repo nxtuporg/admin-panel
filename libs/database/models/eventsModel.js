@@ -12,6 +12,12 @@ const eventSchema = new mongoose.Schema({
   description: {
     type: String,
   },
+  body: {
+    type: String,
+  },
+  image: {
+    type: String,
+  },
   registrationForm: {
     type: Object,
     required: false,
@@ -30,7 +36,7 @@ const eventSchema = new mongoose.Schema({
   ],
 });
 
-module.exports = mongoose.models.Events || mongoose.model("Event", eventSchema);
+module.exports = mongoose.models.Event || mongoose.model("Event", eventSchema);
 
 ///////// WORK IN PROGRESS ////////
 

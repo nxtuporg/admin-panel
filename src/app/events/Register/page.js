@@ -53,6 +53,7 @@ const Register = () => {
             {alluserComponents.map((el) => {
               if (el.type == "Text") {
                 return (
+                  <>
                   <div className="flex flex-col gap-[0.5rem] py-[0.5rem]">
                     {/* <h3
                       contentEditable
@@ -71,9 +72,11 @@ const Register = () => {
                       className="py-[0.5rem] px-[1rem] text-black w-[26rem] rounded-md"
                     />
                   </div>
+                  </>
                 );
               } else if (el.type == "Radio") {
                 return (
+                  <>
                   <div className="flex flex-col gap-[0.5rem]">
                     {/* <h3
                       contentEditable
@@ -95,9 +98,11 @@ const Register = () => {
                       />
                     </div>
                   </div>
+                  </>
                 );
               } else if (el.type == "Select") {
                 return (
+                  <>
                   <div className="flex flex-col gap-[0.5rem]">
                     <input
                       type="text"
@@ -112,9 +117,11 @@ const Register = () => {
                       />
                     </div>
                   </div>
+                  </>
                 );
               } else if (el.type == "Checkbox") {
                 return (
+                  <>
                   <div className="flex flex-col gap-[0.5rem]">
                     <input
                       type="text"
@@ -129,6 +136,7 @@ const Register = () => {
                       />
                     </div>
                   </div>
+                  </>
                 );
               }
             })}
