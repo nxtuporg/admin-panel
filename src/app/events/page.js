@@ -5,6 +5,8 @@ import { useState, useEffect, useRef } from "react";
 const Events = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const quillRef = useRef(null);
+  const [inputs, setinputs] = useState({})
+  const [image, setImageUrl] = useState(null)
 
   useEffect(() => {
     const Quill = window.Quill;
@@ -44,18 +46,41 @@ const Events = () => {
   };
 
   const handleClick = () => {
+    console.log("inputs")
+
     if (quillRef.current) {
       const delta = quillRef.current.getContents();
-      const markdown = deltaToMarkdown(delta);
+      var markdown = deltaToMarkdown(delta);
       console.log(markdown);
     }
+
+    const OurBody = { ...inputs, body: markdown, image }
+    console.log()
+    fetch("/api/events", {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify(OurBody)  // Ensure OurBody is a valid object to be stringified
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);  // Handle the response data here
+      })
+      .catch(error => {
+        console.error('Error:', error);  // Handle any errors
+      });
+
+
+
+
   };
 
   const handleUploadClick = () => {
     document.getElementById("imageInput").click();
   };
 
-  const handleImageChange = (event) => {
+  const handleImageChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
       setSelectedImage(URL.createObjectURL(file));
@@ -63,10 +88,12 @@ const Events = () => {
     }
     var form = new FormData();
     form.append("file", file);
-    var { data: axres } = axios.post(
+    var { data: axres } = await axios.post(
       "http://localhost:5500/api/uploadImage",
       form
     );
+    console.log(axres.filePath)
+    setImageUrl(axres.filePath)
 
     // fetch('/api/imageupload', { method: 'POST', body:  });
   };
@@ -112,6 +139,10 @@ const Events = () => {
           <div className="flex flex-row flex-wrap gap-2">
             <input
               type="text"
+              value={inputs?.day || ""}
+              onChange={el => {
+                setinputs(prev => ({ ...prev, day: el.target?.value }))
+              }}
               placeholder="Date"
               className="w-32 ml-5 p-3 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
       focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
@@ -119,16 +150,30 @@ const Events = () => {
             <input
               type="text"
               placeholder="Time"
+              value={inputs?.time || ""}
+              onChange={el => {
+                setinputs(prev => ({ ...prev, time: el.target?.value }))
+              }}
               className="w-32 ml-5 p-3 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
       focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
             />
             <input
               type="text"
               placeholder="Location"
+              value={inputs?.address || ""}
+              onChange={el => {
+                setinputs(prev => ({ ...prev, address: el.target?.value }))
+              }}
               className="w-52 ml-5 p-3 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
       focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
             />
             <div className="flex flex-row">
+              <select value={inputs?.type || "CLAN"} className="w-20 ml-4" onChange={el => {
+                setinputs(prev => ({ ...prev, type: el.target?.value }))
+              }}>
+                <option value={"CLAN"}>CLAN</option>
+                <option value="CLUB">CLUB</option>
+              </select>
               <button
                 onClick={handleClick}
                 className="bg-purple-500 my-auto self-end right-4 absolute mt-8 focus:bg-purple-500/90 hover:scale-95 md:mt-1 text-white w-20 h-10 rounded-xl font-semibold"
@@ -147,11 +192,19 @@ const Events = () => {
           <input
             type="text"
             placeholder="Enter the title"
+            value={inputs?.name || ""}
+            onChange={el => {
+              setinputs(prev => ({ ...prev, name: el.target?.value }))
+            }}
             className="w-[96%] ml-5 p-3 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
       focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
           />
           <textarea
             placeholder="Enter the short description"
+            value={inputs?.description || ""}
+            onChange={el => {
+              setinputs(prev => ({ ...prev, description: el.target?.value }))
+            }}
             className="w-[96%] ml-5 p-3 h-40 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
       focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
           ></textarea>

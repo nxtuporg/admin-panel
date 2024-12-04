@@ -37,18 +37,7 @@ const eventSchema = new mongoose.Schema({
     type: Object,
     required: false,
   },
-  clubs: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Club",
-    },
-  ],
-  clans: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Clans",
-    },
-  ],
+
 });
 
 module.exports = mongoose.models.Event || mongoose.model("Event", eventSchema);
