@@ -1,95 +1,142 @@
-"use client"
-import { useEffect } from "react";
+"use client";
+import axios from "axios";
+import { useState, useEffect, useRef } from "react";
+
 const Events = () => {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const quillRef = useRef(null);
 
-    useEffect(()=>{
 
-        const Quill = window.Quill
-        if(Quill){
-        const quill = new Quill("#editor", {
-            theme: "snow",
-        })
+  useEffect(() => {
+    const Quill = window.Quill;
+    if (Quill) {
+      quillRef.current = new Quill("#editor", {
+        theme: "snow",
+      });
     }
-    }, [])
+  }, []);
 
-    function handleClick(){
-        const quill = new Quill("#editor")
-        const delta = quill.getContents();
-        // console.log(delta)
 
-        function deltaToMarkdown(delta) {
-            let markdown = "";
-        
-            delta.ops.forEach(op => {
-                if (op.insert) {
-                    const text = op.insert;
-        
-                    // Check for attributes like bold, italic, etc.
-                    if (op.attributes) {
-                        if (op.attributes.bold) {
-                            markdown += `**${text}**`;
-                        } else if (op.attributes.italic) {
-                            markdown += `*${text}*`;
-                        } else if (op.attributes.underline) {
-                            markdown += `<u>${text}</u>`; // Markdown does not natively support underline.
-                        } else if (op.attributes.link) {
-                            markdown += `[${text}](${op.attributes.link})`;
-                        } else {
-                            markdown += text;
-                        }
-                    } else {
-                        markdown += text;
-                    }
-                }
-            });
-        
-            return markdown;
+  const deltaToMarkdown = (delta) => {
+    let markdown = "";
+
+    delta.ops.forEach((op) => {
+      if (op.insert) {
+        const text = op.insert;
+
+        if (op.attributes) {
+          if (op.attributes.bold) {
+            markdown += `**${text}**`;
+          } else if (op.attributes.italic) {
+            markdown += `*${text}*`;
+          } else if (op.attributes.underline) {
+            markdown += `<u>${text}</u>`;
+          } else if (op.attributes.link) {
+            markdown += `[${text}](${op.attributes.link})`;
+          } else {
+            markdown += text;
+          }
+        } else {
+          markdown += text;
         }
+      }
+    });
 
-        const markdown = deltaToMarkdown(delta);
-        
-        console.log(markdown);                           
-        
+    return markdown;
+  };
+
+  const handleClick = () => {
+    if (quillRef.current) {
+      const delta = quillRef.current.getContents();
+      const markdown = deltaToMarkdown(delta);
+      console.log(markdown);
     }
-    
-    
+  };
 
-    return(
-    
-        <div className="bg-amber-50 text-black">
+  const handleUploadClick = () => {
+    document.getElementById("imageInput").click();
+  };
 
+  const handleImageChange = (event) => {
 
-            <div className="h-[45vh] w-full bg-slate-100 flex flex-col md:flex-row items-center md:items-start ">
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedImage(URL.createObjectURL(file));
+      alert("Image uploaded successfully!");
+    }
+    var form = new FormData()
+    form.append("file",file)
+    var {data:axres} = axios.post("/api/imageupload",form)
 
-                <div className=" items-center justify-center flex pl-12 p-8 h-full w-[370px] lg:w-[390px] bg-slate-200 "> <img className="h-[90%]" src="https://ukfcet.ac.in/education4.0/wp-content/uploads/2021/04/hackathon.jpg"></img> </div>
-                <div className="  md:p-6 mt-1 w-[90vw] sm:w-[75vw] flex   flex-col justify-around mb-16  lg:mb-2 gap-6">
+    // fetch('/api/imageupload', { method: 'POST', body:  });
 
-                <button onClick={handleClick} className="bg-purple-500 self-end mr-6 mt-8 focus:bg-purple-500/90  hover:scale-95 md:mt-1 text-white w-20 h-10 rounded-xl font-semibold ">Add</button>
+  };
 
-                <input type="text" placeholder="Enter the title "  className="w-[96%] ml-5 p-3 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
-      focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"/>
+  return (
+    <div className="bg-amber-50 text-black">
+      <div className="h-[45vh] w-full bg-slate-100 flex flex-col md:flex-row items-center md:items-start">
+        <div className="flex items-center justify-center pl-12 p-8 h-full w-[370px] lg:w-[390px] bg-slate-200">
+          <div className="h-[80%] w-[80%] border-2 border-black border-dashed flex items-center justify-center bg-white">
+            {selectedImage ? (
+              <img
+                className="z-3 object-contain "
+                src={selectedImage}
+                alt="Uploaded preview"
+              />
+            ) : (
+              <p></p>
+            )}
+            <button
+              onClick={handleUploadClick}
+              className=" hover:scale-95 cursor-pointer  h-16"
+            >
+                
+              <img className="h-20 border-gray-200 border-2" src="https://t3.ftcdn.net/jpg/04/92/94/70/360_F_492947093_LOGkIRfXScJs3PS2tgjJ4lGR74B0hs7Z.jpg"></img>
 
-                <textarea placeholder="Enter the short description" className="w-[96%] ml-5 p-3 h-40 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
-      focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"></textarea>
+            </button>
+            <input
+              type="file"
+              id="imageInput"
+              style={{ display: "none" }}
+              accept="image/*"
+              onChange={handleImageChange}
+            />
+          </div>
+        </div>
 
+        <div className="md:p-6 mt-1 w-[90vw] sm:w-[75vw] flex flex-col justify-around mb-16 lg:mb-2 gap-6">
+          <button
+            onClick={handleClick}
+            className="bg-purple-500 self-end mr-6 mt-8 focus:bg-purple-500/90 hover:scale-95 md:mt-1 text-white w-20 h-10 rounded-xl font-semibold"
+          >
+            Add
+          </button>
+          <input
+            type="text"
+            placeholder="Enter the title"
+            className="w-[96%] ml-5 p-3 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
+      focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
+          />
+          <textarea
+            placeholder="Enter the short description"
+            className="w-[96%] ml-5 p-3 h-40 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
+      focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
+          ></textarea>
+        </div>
+      </div>
 
+      <div className="w-full sm:w-[90vw] mx-auto p-1 sm:p-12 bg-yellow-50/10 md:mt-0 mt-[38vh]">
+        <link
+          href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css"
+          rel="stylesheet"
+        />
+        <div id="editor">
+          <p>Hello World!</p>
+          <p>Some initial <strong>bold</strong> text</p>
+          <p><br /></p>
 
-                </div>
-
-
-            </div>
-
-            <div className="w-full sm:w-[90vw] mx-auto p-1 sm:p-12 bg-yellow-50/10 md:mt-0 mt-[38vh]">
-            
-            <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
-
-
-            <div id="editor">
-            <p>Hello World!</p>
-            <p>Some initial <strong>bold</strong> text</p>
-            <p><br /></p>
-            <p className="text-lg">
-Newton School is a prominent online ed-tech platform that aims to bridge the gap between talented individuals and the rapidly evolving tech industry. Founded in 2019, Newton School focuses on providing high-quality, industry-relevant education in software engineering and data science. The platform offers live coding classes, career-focused mentorship, and job placement assistance to help students transition from non-technical backgrounds or early-career stages into roles at top tech companies.
+            <p className="text-lg text-black">
+            Newton School is a prominent online ed-tech platform that aims to bridge the gap between talented individuals and the rapidly evolving tech industry. Founded in 2019, Newton School focuses on providing high-quality, industry-relevant education in software engineering and data science. The platform offers live coding classes, career-focused mentorship, and job placement assistance to help students transition from non-technical backgrounds or early-career stages into roles at top tech companies.
 
 Key aspects of Newton School include:
 
@@ -103,16 +150,14 @@ Siddharth Maheshwari is the co-founder and CEO of Newton School. Before founding
 
 Siddharth and his team launched Newton School to address a critical gap in the traditional education system, where many aspiring software engineers and developers struggle to find opportunities due to lack of experience, resources, or relevant training. His vision for Newton School is to democratize access to top-tier education, helping people land jobs at leading companies like Amazon, Google, and Microsoft without requiring a formal computer science degree.
 
-Under his leadership, Newton School has seen rapid growth, and it has successfully helped thousands of students transition to tech careers.</p>
-            </div>
+Under his leadership, Newton School has seen rapid growth, and it has successfully helped thousands of students transition to tech careers.
+            </p>
 
-
-
-
-            </div>
 
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
 export default Events;
