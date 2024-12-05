@@ -274,12 +274,12 @@ const Register = () => {
                 el.currentTarget.nextElementSibling.style.opacity = 1;
               }
             }}
-            className="px-[1rem] py-[0.8rem] bg-slate-900 w-[26rem] rounded-tl-md rounded-tr-md cursor-pointer "
+            className="px-[1rem] py-[0.8rem] bg-slate-900 w-[26rem] rounded-tl-md rounded-tr-md cursor-pointer text-white"
           >
             + Add input
           </button>
           <div className="w-[26rem] opacity-0 transition-all duration-200 h-[2px] bg-slate-800" />
-          <div className="flex flex-col gap-[0.5rem] h-0 overflow-hidden bg-slate-900 w-[26rem] rounded-bl-md rounded-br-md transition-all duration-300">
+          <div className="flex text-white flex-col gap-[0.5rem] h-0 overflow-hidden bg-slate-900 w-[26rem] rounded-bl-md rounded-br-md transition-all duration-300">
             {[
               {
                 type: "Text",
@@ -317,7 +317,7 @@ const Register = () => {
             ))}
           </div>
           <button
-            className="px-[1rem] py-[0.8rem] bg-slate-900 w-[26rem] rounded-tl-md rounded-tr-md cursor-pointer mt-[1rem]"
+            className="px-[1rem] py-[0.8rem] bg-slate-900 text-white w-[26rem] rounded-tl-md rounded-tr-md cursor-pointer mt-[1rem]"
             onClick={submitRegisterForm}
           >
             Submit
