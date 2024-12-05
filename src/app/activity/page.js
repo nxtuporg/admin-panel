@@ -1,12 +1,17 @@
 "use client";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 
-const Page = () => {
+const Events = () => {
+  
   const [selectedImage, setSelectedImage] = useState(null);
   const quillRef = useRef(null);
-  const [inputs, setinputs] = useState({ type: "CLAN" });
-  const [image, setImageUrl] = useState(null);
+  const [inputs, setinputs] = useState({})
+  const [image, setImageUrl] = useState(null)
+
+  const router = useRouter();
+
 
   useEffect(() => {
     const Quill = window.Quill;
@@ -46,26 +51,29 @@ const Page = () => {
   };
 
   const handleClick = () => {
-    // console.log("inputs");
+    console.log("inputs");
 
+    let markdown = "";
     if (quillRef.current) {
       const delta = quillRef.current.getContents();
-      var markdown = deltaToMarkdown(delta);
+      markdown = deltaToMarkdown(delta);
       console.log(markdown);
     }
 
     const OurBody = { ...inputs, body: markdown, image };
     console.log();
-    fetch("/api/activity", {
+    fetch("/api/events", {
       headers: {
         "Content-Type": "application/json",
       },
       method: "POST",
       body: JSON.stringify(OurBody), // Ensure OurBody is a valid object to be stringified
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data); // Handle the response data here
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);  // Handle the response data here
+        
+        router.replace(`/events/Register?id=${data.id}`)
       })
       .catch((error) => {
         console.error("Error:", error); // Handle any errors
@@ -134,7 +142,7 @@ const Page = () => {
         <div className="md:p-6 mt-1 w-[90vw] sm:w-[75vw] flex flex-col justify-around mb-16 lg:mb-2 gap-6">
           <div className="flex flex-row flex-wrap gap-2">
             <input
-              type="text"
+              type="Date"
               value={inputs?.day || ""}
               onChange={(el) => {
                 setinputs((prev) => ({ ...prev, day: el.target?.value }));
@@ -144,7 +152,7 @@ const Page = () => {
       focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
             />
             <input
-              type="text"
+              type="time"
               placeholder="Time"
               value={inputs?.time || ""}
               onChange={(el) => {
@@ -166,7 +174,7 @@ const Page = () => {
             <div className="flex flex-row">
               <select
                 value={inputs?.type || "CLAN"}
-                className="w-20 ml-4"
+                className="w-20 ml-4 rounded-2xl"
                 onChange={(el) => {
                   setinputs((prev) => ({ ...prev, type: el.target?.value }));
                 }}
@@ -180,12 +188,12 @@ const Page = () => {
               >
                 Add
               </button>
-              <button
+              {/* <button
                 onClick={handleClick}
                 className="bg-purple-500 my-auto self-end right-28 absolute  mt-8 focus:bg-purple-500/90 hover:scale-95 md:mt-1 text-white w-20 h-10 rounded-xl font-semibold"
               >
                 Live it
-              </button>
+              </button> */}
             </div>
           </div>
 
@@ -199,15 +207,23 @@ const Page = () => {
             className="w-[96%] ml-5 p-3 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
       focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
           />
-          <textarea
-            placeholder="Enter the short description"
-            value={inputs?.description || ""}
-            onChange={(el) => {
-              setinputs((prev) => ({ ...prev, description: el.target?.value }));
-            }}
-            className="w-[96%] ml-5 p-3 h-40 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
-      focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
-          ></textarea>
+<textarea
+  placeholder="Enter the short description"
+  value={inputs?.description || ""}
+  onChange={(el) => {
+    const value = el.target.value;
+    // Split the input by spaces and filter out empty strings to count words
+    const wordCount = value.trim().split(/\s+/).length;
+
+    // If the word count is less than or equal to 50, update the state
+    if (wordCount <= 50) {
+      setinputs((prev) => ({ ...prev, description: value }));
+    }
+  }}
+  className="w-[96%] ml-5 p-3 h-40 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
+    focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
+/>
+
         </div>
       </div>
 
@@ -275,4 +291,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Events;
