@@ -85,7 +85,7 @@ const Page = () => {
     var form = new FormData();
     form.append("file", file);
     var { data: axres } = await axios.post(
-      "http://localhost:5500/api/uploadImage",
+      "https://backend-newton-product-non-admin-1.onrender.com/api/uploadImage",
       form
     );
     console.log(axres.filePath);
