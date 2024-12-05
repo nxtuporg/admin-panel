@@ -19,7 +19,7 @@ const clanSchema = new mongoose.Schema({
     },
     topPerformers:{
         type: Array,
-        required: true,
+        
     },
 })
 
