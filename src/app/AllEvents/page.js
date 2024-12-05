@@ -80,6 +80,9 @@ const Page = () => {
                 Activated
               </th>
               <th scope="col" class="px-6 py-3">
+                Activate For Banner
+              </th>
+              <th scope="col" class="px-6 py-3">
                 Add Registration Form
               </th>
               <th scope="col" class="px-6 py-3">
@@ -210,10 +213,30 @@ const Page = () => {
                   </td>
                   <td
                     class={`px-6 py-4  cursor-pointer ${
+                      el.ActivatedForCarousel
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }`}
+                    onClick={async () => {
+                      var { data: axres } = await axios.post(
+                        "/api/eventsCrud",
+                        { type: "bannerActive", id: el._id }
+                      );
+                      await refreshData();
+                    }}
+                  >
+                    {el.ActivatedForCarousel ? "Activated" : "DeActivated"}
+                  </td>
+                  <td
+                    class={`px-6 py-4  cursor-pointer ${
                       el.Activated ? "text-green-600" : "text-red-600"
                     }`}
-                    onClick={() => {
-                      router.push("/api/events?id=" + el._id);
+                    onClick={async () => {
+                      var { data: axres } = await axios.post(
+                        "/api/eventsCrud",
+                        { type: "activation", id: el._id }
+                      );
+                      await refreshData();
                     }}
                   >
                     {el.Activated ? "Activated" : "DeActivated"}

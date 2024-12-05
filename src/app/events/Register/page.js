@@ -17,12 +17,12 @@ const Register = () => {
     //for the api part
   }, []);
   function submitRegisterForm() {
-    var id = searchParams.get('id');
-    console.log(id,title,desc,alluserComponents)
+    var id = searchParams.get("id");
+    // console.log(id, title, desc, alluserComponents);
     var { data: axres } = axios.post("/api/addRegistrationForm", {
       id,
       title,
-      desc,
+      description: desc,
       sequence: alluserComponents,
     });
     if (axres.status) {
@@ -48,7 +48,9 @@ const Register = () => {
             type="text"
             name="eventTitle"
             value={title}
-            onChange={(e)=>{settitle(e.target.value)}}
+            onChange={(e) => {
+              settitle(e.target.value);
+            }}
             className="w-[26rem] text-black px-[1rem] py-[0.5rem] rounded-md"
             placeholder="Damru"
           />
@@ -59,7 +61,9 @@ const Register = () => {
             type="text"
             name="eventDesc"
             value={desc}
-            onChange={(e)=>{setdesc(e.target.value)}}
+            onChange={(e) => {
+              setdesc(e.target.value);
+            }}
             className="w-[26rem] px-[1rem] py-[0.5rem] rounded-md text-black"
             placeholder="NST-RU cultural fest"
           />
