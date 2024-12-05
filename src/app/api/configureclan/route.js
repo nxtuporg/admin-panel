@@ -8,10 +8,10 @@ export async function POST(req) {
     const clanData = await req.json();
     if (
       
-      !clanData.name ||
-      !clanData.leader ||
-      !clanData.viceLeader ||
-      !clanData.points 
+      // !clanData.name ||
+      !clanData.leader
+      // !clanData.viceLeader ||
+      // !clanData.points 
     ) {
       return NextResponse.json(
         { message: "Missing required fields", status: false },
@@ -35,6 +35,20 @@ export async function POST(req) {
 export async function GET(req) {
   await dbConnect();
   try {
+    const { searchParams } = new URL(req.url);
+    const clanId = searchParams.get("id");
+
+    if (clanId) {
+      const clan = await clanModel.findById(clanId);
+      if (!clan) {
+        return NextResponse.json(
+          { message: "Clan not found", status: false },
+          { status: 404 }
+        );
+      }
+      return NextResponse.json({ clan, status: true }, { status: 200 });
+    }
+
     const clans = await clanModel.find();
     console.log(clans);
     return NextResponse.json({ clans, status: true }, { status: 200 });
