@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 const Register = () => {
   // var router = useRouter();
   // var params = useParams();
-  var searchParams = useSearchParams();
+  const searchParams = useSearchParams();
   const [title, settitle] = useState("");
   const [desc, setdesc] = useState("");
   const [alluserComponents, setalluserComponents] = useState([]);
@@ -17,7 +17,8 @@ const Register = () => {
     //for the api part
   }, []);
   function submitRegisterForm() {
-    var id = searchParams.get("id");
+    var id = searchParams.get('id');
+    console.log(id,title,desc,alluserComponents)
     var { data: axres } = axios.post("/api/addRegistrationForm", {
       id,
       title,
@@ -46,6 +47,8 @@ const Register = () => {
           <input
             type="text"
             name="eventTitle"
+            value={title}
+            onChange={(e)=>{settitle(e.target.value)}}
             className="w-[26rem] text-black px-[1rem] py-[0.5rem] rounded-md"
             placeholder="Damru"
           />
@@ -55,6 +58,8 @@ const Register = () => {
           <input
             type="text"
             name="eventDesc"
+            value={desc}
+            onChange={(e)=>{setdesc(e.target.value)}}
             className="w-[26rem] px-[1rem] py-[0.5rem] rounded-md text-black"
             placeholder="NST-RU cultural fest"
           />

@@ -1,12 +1,18 @@
 "use client";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 
 const Events = () => {
+  
   const [selectedImage, setSelectedImage] = useState(null);
   const quillRef = useRef(null);
   const [inputs, setinputs] = useState({})
+  inputs.type = "CLAN";
   const [image, setImageUrl] = useState(null)
+
+  const router = useRouter();
+
 
   useEffect(() => {
     const Quill = window.Quill;
@@ -66,6 +72,8 @@ const Events = () => {
       .then(response => response.json())
       .then(data => {
         console.log(data);  // Handle the response data here
+        
+        router.replace(`/events/Register?id=${data.id}`)
       })
       .catch(error => {
         console.error('Error:', error);  // Handle any errors

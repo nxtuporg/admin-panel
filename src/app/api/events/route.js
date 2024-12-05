@@ -19,12 +19,18 @@ export async function POST(req) {
         { status: 400 }
       );
     }
-    const event = new eventsModel(eventData);
-    await event.save();
+    const event = new eventsModel(eventData); // Create a new event instance
+    await event.save(); // Save the event to the database
+    
     return NextResponse.json(
-      { message: "Event created", status: true },
+      {
+        message: "Event created",
+        status: true,
+        id: event._id // Access the _id directly from the saved object
+      },
       { status: 200 }
     );
+    
   } catch (error) {
     return NextResponse.json(
       { message: error.message, status: false },
