@@ -114,23 +114,41 @@ const Home = () => {
             button: "Create a new Admin User",
             link: "/register",
           },
+          {
+            title: "All Admin Users",
+            desc: `All Admin Users Configutaion`,
+            button: "All Admins",
+            link: "/AllAdminUsers",
+          },
+          {
+            title: "Events",
+            desc: `All Events configuration`,
+            button: "All Events",
+            link: "/AllEvents",
+          },
+          {
+            title: "Activities",
+            desc: `All Activities configuration`,
+            button: "All Activities",
+            link: "/AllActivities",
+          },
         ].map((el) => {
           return (
             <>
-            <div className="bg-slate-800 rounded-lg shadow-md overflow-hidden">
-              <div className="p-6">
-                <h2 className="text-lg text-white font-bold mb-4 ">
-                  {el.title}
-                </h2>
-                <p className="text-gray-400 mb-6 line-clamp-2">{el.desc}</p>
-                <button
-                  className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  onClick={() => router.push(el.link)}
-                >
-                  {el.button}
-                </button>
+              <div className="bg-slate-800 rounded-lg shadow-md overflow-hidden">
+                <div className="p-6">
+                  <h2 className="text-lg text-white font-bold mb-4 ">
+                    {el.title}
+                  </h2>
+                  <p className="text-gray-400 mb-6 line-clamp-2">{el.desc}</p>
+                  <button
+                    className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    onClick={() => router.push(el.link)}
+                  >
+                    {el.button}
+                  </button>
+                </div>
               </div>
-            </div>
             </>
           );
         })}

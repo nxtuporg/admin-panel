@@ -1,12 +1,18 @@
 "use client";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 
 const Events = () => {
+  
   const [selectedImage, setSelectedImage] = useState(null);
   const quillRef = useRef(null);
-  const [inputs, setinputs] = useState({ type: "CLAN" });
-  const [image, setImageUrl] = useState(null);
+  const [inputs, setinputs] = useState({})
+  inputs.type = "CLAN";
+  const [image, setImageUrl] = useState(null)
+
+  const router = useRouter();
+
 
   useEffect(() => {
     const Quill = window.Quill;
@@ -48,9 +54,10 @@ const Events = () => {
   const handleClick = () => {
     console.log("inputs");
 
+    let markdown = "";
     if (quillRef.current) {
       const delta = quillRef.current.getContents();
-      var markdown = deltaToMarkdown(delta);
+      markdown = deltaToMarkdown(delta);
       console.log(markdown);
     }
 
@@ -63,9 +70,11 @@ const Events = () => {
       method: "POST",
       body: JSON.stringify(OurBody), // Ensure OurBody is a valid object to be stringified
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data); // Handle the response data here
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);  // Handle the response data here
+        
+        router.replace(`/events/Register?id=${data.id}`)
       })
       .catch((error) => {
         console.error("Error:", error); // Handle any errors

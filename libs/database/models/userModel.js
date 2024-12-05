@@ -13,6 +13,21 @@ userSchema.pre("save", async function (next) {
   }
   next();
 });
-
+userSchema.pre("findOneAndUpdate", async function (next) {
+  const update = this.getUpdate();
+  if (update.password) {
+    const salt = await bcrypt.genSalt(10);
+    update.password = await bcrypt.hash(update.password, salt);
+  }
+  next();
+});
+userSchema.pre("findByIdAndUpdate", async function (next) {
+  const update = this.getUpdate();
+  if (update.password) {
+    const salt = await bcrypt.genSalt(10);
+    update.password = await bcrypt.hash(update.password, salt);
+  }
+  next();
+});
 module.exports =
   mongoose.models.AdminUser || mongoose.model("AdminUser", userSchema);
