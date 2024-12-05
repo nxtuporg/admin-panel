@@ -10,11 +10,7 @@ const ConfigureClan = () => {
 
     const router = useRouter();
 
-    const [clanName, setClanName] = useState('Rajputana Clan');
-    const [points, setPoints] = useState(120);
-    const [leader, setLeader] = useState('Raju');
-    const [coLeader, setCoLeader] = useState('majnu');
-    const [topPerformers, setTopPerformers] = useState(['Raju','majnu','kalu','nalu','salu']);
+    
 
     
     // useEffect(() => {
@@ -79,6 +75,12 @@ const ConfigureClan = () => {
     
    };
 
+   const [clanName, setClanName] = useState(clanName);
+    const [points, setPoints] = useState(points);
+    const [leader, setLeader] = useState(leader);
+    const [coLeader, setCoLeader] = useState(coLeader);
+    const [topPerformers, setTopPerformers] = useState(topPerformers);
+
   return (
     <>
     <Navbar/>
@@ -87,7 +89,24 @@ const ConfigureClan = () => {
         Change Clan Points
       </h2>
       <form className="mb-8 p-4 bg-gray-700 rounded-lg shadow-md max-w-lg" onSubmit={handleUpdateClan}>
-       
+      <div className="mb-4">
+          <label
+            htmlFor="clanName"
+            className="block text-sm font-medium text-gray-300"
+          >
+            Clan Name
+          </label>
+          <input
+            id="clanName"
+            name="clanName"
+            type="text"
+            required
+            className="w-3/4 px-4 py-2 mt-1 text-white bg-gray-700 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter Clan Name"
+            value={clanName}
+            onChange={(e) => setClanName(e.target.value)}  
+          />
+        </div>
         <div className="mb-4">
           <label
             htmlFor="newPoints"
@@ -100,7 +119,7 @@ const ConfigureClan = () => {
             name="newPoints"
             type="number"
             required
-            className="w-3/4 px-4 py-2 mt-1 text-gray-900 bg-gray-700 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-3/4 px-4 py-2 mt-1 text-white bg-gray-700 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter New Points"
             value={points}
             onChange={(e) => setPoints(e.target.value)}  
@@ -132,7 +151,7 @@ const ConfigureClan = () => {
                 name="leader"
                 type="text"
                 required
-                className="w-3/4 px-4 py-2 mt-1 text-gray-900 bg-gray-700 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-3/4 px-4 py-2 mt-1 text-white bg-gray-700 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter Leader Name"
                 value={leader}
                 onChange={(e) => setLeader(e.target.value)}
@@ -150,7 +169,7 @@ const ConfigureClan = () => {
                 name="coLeader"
                 type="text"
                 required
-                className="w-3/4 px-4 py-2 mt-1 text-gray-900 bg-gray-700 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-3/4 px-4 py-2 mt-1 text-white bg-gray-700 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter Co-Leader Name"
                 value={coLeader}
                 onChange={(e) => setCoLeader(e.target.value)}
@@ -184,7 +203,7 @@ const ConfigureClan = () => {
                   name={`topPerformer${index}`}
                   type="text"
                   required
-                  className="w-3/4 px-4 py-2 mt-1 text-gray-900 bg-gray-700 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-3/4 px-4 py-2 mt-1 text-white bg-gray-700 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder={`Enter Top Performer ${index + 1} Name`}
                   value={performer}
                   onChange={(e) => {
