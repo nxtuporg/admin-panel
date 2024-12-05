@@ -8,27 +8,36 @@ const Page = () => {
   var router = useRouter();
   const [allEvents, setallEvents] = useState([]);
   const [updationEventData, setupdationEventData] = useState({});
-
+  const [loading, setLoading] = useState(false);
+const getAllEvents = async () => {
+  try {
+      setLoading(true);
+  var { data: axres } = await axios.get("/api/events");
+  if (axres.status) {
+    setallEvents(axres.events);
+    // toast.success(axres.message);
+  } else {
+    toast.error(axres.message);
+    }
+  } catch (error) {
+    toast.error(error.message);
+  } finally {
+    setLoading(false);
+  }
+};
   useEffect(() => {
-    (async () => {
-      var { data: axres } = await axios.get("/api/events");
-      if (axres.status) {
-        setallEvents(axres.events);
-        // toast.success(axres.message);
-      } else {
-        toast.error(axres.message);
-      }
-    })();
+    getAllEvents();
   }, []);
 
   var refreshData = async () => {
-    var { data: axres } = await axios.get("/api/events");
-    if (axres.status) {
-      setallEvents(axres.events);
-      // toast.success(axres.message);
-    } else {
-      toast.error(axres.message);
-    }
+    // var { data: axres } = await axios.get("/api/events");
+    // if (axres.status) {
+    //   setallEvents(axres.events);
+    //   // toast.success(axres.message);
+    // } else {
+    //   toast.error(axres.message);
+    // }
+    getAllEvents();
   };
   async function UpdateEventDetailsfunc() {
     var { data: axres } = await axios.put("/api/events", updationEventData);
@@ -54,7 +63,7 @@ const Page = () => {
           Sync
         </button>
       </div>
-      <div class="relative overflow-x-auto">
+     {!loading? <div class="relative overflow-x-auto">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -276,7 +285,7 @@ const Page = () => {
             })}
           </tbody>
         </table>
-      </div>
+      </div> :  <div  className="flex justify-center items-center h-[50vh]">Loading</div>}
     </div>
   );
 };
