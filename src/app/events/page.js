@@ -207,15 +207,23 @@ const Events = () => {
             className="w-[96%] ml-5 p-3 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
       focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
           />
-          <textarea
-            placeholder="Enter the short description"
-            value={inputs?.description || ""}
-            onChange={(el) => {
-              setinputs((prev) => ({ ...prev, description: el.target?.value }));
-            }}
-            className="w-[96%] ml-5 p-3 h-40 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
-      focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
-          ></textarea>
+<textarea
+  placeholder="Enter the short description"
+  value={inputs?.description || ""}
+  onChange={(el) => {
+    const value = el.target.value;
+    // Split the input by spaces and filter out empty strings to count words
+    const wordCount = value.trim().split(/\s+/).length;
+
+    // If the word count is less than or equal to 50, update the state
+    if (wordCount <= 50) {
+      setinputs((prev) => ({ ...prev, description: value }));
+    }
+  }}
+  className="w-[96%] ml-5 p-3 h-40 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
+    focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
+/>
+
         </div>
       </div>
 
