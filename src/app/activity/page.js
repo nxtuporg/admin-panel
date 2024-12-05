@@ -2,7 +2,7 @@
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 
-const page = () => {
+const Page = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const quillRef = useRef(null);
   const [inputs, setinputs] = useState({ type: "CLAN" });
@@ -275,4 +275,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

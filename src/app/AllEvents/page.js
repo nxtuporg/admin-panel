@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-const page = () => {
+const Page = () => {
   var router = useRouter();
   const [allEvents, setallEvents] = useState([]);
   const [updationEventData, setupdationEventData] = useState({});
@@ -239,4 +239,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
