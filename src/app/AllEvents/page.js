@@ -77,6 +77,9 @@ const Page = () => {
                 type
               </th>
               <th scope="col" class="px-6 py-3">
+                Activated
+              </th>
+              <th scope="col" class="px-6 py-3">
                 Add Registration Form
               </th>
               <th scope="col" class="px-6 py-3">
@@ -191,7 +194,7 @@ const Page = () => {
                       type="text"
                       value={updationEventData[el._id]?.type}
                       placeholder={el.type}
-                      className="bg-transparent"
+                      className="bg-transparent w-[5rem]"
                       onChange={(eel) => {
                         setupdationEventData((prev = {}) => {
                           prev[el._id] = prev[el._id]
@@ -204,6 +207,16 @@ const Page = () => {
                         });
                       }}
                     />
+                  </td>
+                  <td
+                    class={`px-6 py-4  cursor-pointer ${
+                      el.Activated ? "text-green-600" : "text-red-600"
+                    }`}
+                    onClick={() => {
+                      router.push("/api/events?id=" + el._id);
+                    }}
+                  >
+                    {el.Activated ? "Activated" : "DeActivated"}
                   </td>
                   <td
                     class="px-6 py-4  cursor-pointer"

@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const eventSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -37,7 +36,11 @@ const eventSchema = new mongoose.Schema({
     type: Object,
     required: false,
   },
-
+  Activated: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
 });
 
 module.exports = mongoose.models.Event || mongoose.model("Event", eventSchema);
