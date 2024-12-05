@@ -77,10 +77,10 @@ const Page = () => {
                 type
               </th>
               <th scope="col" class="px-6 py-3">
-                Activated
+                Activate For Banner
               </th>
               <th scope="col" class="px-6 py-3">
-                Activate For Banner
+                Activated
               </th>
               <th scope="col" class="px-6 py-3">
                 Add Registration Form
@@ -223,6 +223,9 @@ const Page = () => {
                         { type: "bannerActive", id: el._id }
                       );
                       await refreshData();
+                      if (!axres.status) {
+                        toast.error(axres.message);
+                      }
                     }}
                   >
                     {el.ActivatedForCarousel ? "Activated" : "DeActivated"}
@@ -237,6 +240,9 @@ const Page = () => {
                         { type: "activation", id: el._id }
                       );
                       await refreshData();
+                      if (!axres.status) {
+                        toast.error(axres.message);
+                      }
                     }}
                   >
                     {el.Activated ? "Activated" : "DeActivated"}

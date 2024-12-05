@@ -9,22 +9,36 @@ export async function POST(req) {
     const eventData = await req.json();
     if (eventData.type == "activation") {
       var curevent = await eventsModel.findById(eventData.id);
-      await eventsModel.findByIdAndUpdate(eventData.id, {
-        Activated: !curevent.Activated,
-      });
-      return NextResponse.json(
-        { message: "Success", status: true },
-        { status: 200 }
-      );
+      if (curevent.registrationForm) {
+        await eventsModel.findByIdAndUpdate(eventData.id, {
+          Activated: !curevent.Activated,
+        });
+        return NextResponse.json(
+          { message: "Success", status: true },
+          { status: 200 }
+        );
+      } else {
+        return NextResponse.json(
+          { message: "Please add a registration form first", status: false },
+          { status: 200 }
+        );
+      }
     } else if (eventData.type == "bannerActive") {
       var curevent = await eventsModel.findById(eventData.id);
-      await eventsModel.findByIdAndUpdate(eventData.id, {
-        ActivatedForCarousel: !curevent.ActivatedForCarousel,
-      });
-      return NextResponse.json(
-        { message: "Success", status: true },
-        { status: 200 }
-      );
+      if (curevent.registrationForm) {
+        await eventsModel.findByIdAndUpdate(eventData.id, {
+          ActivatedForCarousel: !curevent.ActivatedForCarousel,
+        });
+        return NextResponse.json(
+          { message: "Success", status: true },
+          { status: 200 }
+        );
+      } else {
+        return NextResponse.json(
+          { message: "Please add a registration form first", status: false },
+          { status: 200 }
+        );
+      }
     }
     console.log(eventData);
   } catch (error) {
