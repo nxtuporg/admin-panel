@@ -45,11 +45,12 @@ const ConfigureClubs = () => {
         clubs.map((club, idx) => {
             console.log(club.devclub[0]);
             return (
-                <div key={idx}>
-                    <h1 key={idx} className="text-2xl mb-16 text-center hover:bg-white cursor-pointer hover:text-sky-400 rounded-xl py-2 px-4 text-slate-500 font-bold">{club.devclub[0].Technology}</h1>
-
+                <div key={idx} className='bg-slate-200'>
+                    <h1 key={idx} className="text-2xl mb-16 text-center underline bg-black/10 cursor-pointer hover:text-sky-400 rounded-xl py-2 px-4 text-slate-500 font-bold">{club.devclub[0].Technology}</h1>
+                    
                     <div className='flex flex-row justify-evenly '>
                         <div className='flex flex-col items-center '>
+                            <button className='absolute right-16 mt-[-20px] text-xl bg-red-500 text-white px-4 py-2 rounded-2xl'>Sync</button>
                         <img className=' rounded-full w-36 border border-gray-200' src={club.devclub[0].President.Image} alt='President'/>
                         <h1 className='text-black text-xl text-center font-bold mt-4' >President</h1>
                         <input className='text-black text-xl text-center border border-gray-200 font-medium mt-4' value={club.devclub[0].President.Name}/>
