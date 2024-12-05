@@ -76,7 +76,7 @@ const Home = () => {
             link: "/events",
           },
           {
-            title: "Configure Clan Details",
+            title: "Configure Club Details",
             desc: `Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text
               ever since the 1500s, when an unknown printer took a galley of
@@ -85,8 +85,8 @@ const Home = () => {
               electronic typesetting, remaining essentially unchanged. It was
               popularised in the 1960s with the release of Letraset sheets
               containing Lorem Ipsum passages, and more recently`,
-            button: "Change Clan Details",
-            link: "/configureclan",
+            button: "Change Club Details",
+            link: "/configureclub",
           },
           // {
           //   title: "Configure Clan Details",
