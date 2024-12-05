@@ -48,9 +48,10 @@ const Events = () => {
   const handleClick = () => {
     console.log("inputs");
 
+    let markdown = "";
     if (quillRef.current) {
       const delta = quillRef.current.getContents();
-      var markdown = deltaToMarkdown(delta);
+      markdown = deltaToMarkdown(delta);
       console.log(markdown);
     }
 
