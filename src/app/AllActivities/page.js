@@ -11,27 +11,26 @@ const page = () => {
 
   useEffect(() => {
     (async () => {
-      var { data: axres } = await axios.get("/api/events");
+      var { data: axres } = await axios.get("/api/activity");
       if (axres.status) {
-        setallEvents(axres.events);
+        setallEvents(axres.activities);
         // toast.success(axres.message);
       } else {
         toast.error(axres.message);
       }
     })();
   }, []);
-
   var refreshData = async () => {
-    var { data: axres } = await axios.get("/api/events");
+    var { data: axres } = await axios.get("/api/activity");
     if (axres.status) {
-      setallEvents(axres.events);
+      setallEvents(axres.activities);
       // toast.success(axres.message);
     } else {
       toast.error(axres.message);
     }
   };
   async function UpdateEventDetailsfunc() {
-    var { data: axres } = await axios.put("/api/events", updationEventData);
+    var { data: axres } = await axios.put("/api/activity", updationEventData);
     if (axres.status) {
       toast.success(axres.message);
     } else {
@@ -45,7 +44,7 @@ const page = () => {
           className="text-[2rem] font-semibold mb-[1rem]"
           style={{ fontFamily: "outfit" }}
         >
-          All events
+          All Activities
         </h3>
         <button
           onClick={UpdateEventDetailsfunc}
@@ -80,12 +79,12 @@ const page = () => {
                 Add Registration Form
               </th>
               <th scope="col" class="px-6 py-3">
-                Delete Event
+                Delete Activity
               </th>
             </tr>
           </thead>
           <tbody>
-            {allEvents.map((el) => {
+            {allEvents?.map((el) => {
               return (
                 <tr
                   key={el._id}
@@ -217,7 +216,7 @@ const page = () => {
                     class="px-6 py-4  cursor-pointer"
                     onClick={async () => {
                       var { data: axres } = await axios.delete(
-                        "/api/events?id=" + el._id
+                        "/api/activity?id=" + el._id
                       );
                       if (axres.status) {
                         await refreshData();

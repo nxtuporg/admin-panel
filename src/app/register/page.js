@@ -16,6 +16,7 @@ const Register = () => {
     if (axres.status) {
       toast.success(axres.message);
       alert(`User Credentials are:\nEmail:${email}\nPassword:${pass}`);
+      router.push("/AllAdminUsers");
     } else {
       // console.log(axres);
       toast.error(axres.message);
