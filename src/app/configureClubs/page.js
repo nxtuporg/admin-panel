@@ -14,7 +14,7 @@ const ConfigureClubs = () => {
           );
           const data = await response.json();
           setClubs(data.data);
-        //   console.log(data.data)
+          console.log(data.data)
         };
         fetchClubsData();
       }, []);
@@ -23,7 +23,7 @@ const ConfigureClubs = () => {
     return (
         <div>
 
-            <nav className="w-[90vw] mx-auto mt-4 h-16 rounded-xl flex flex-row  bg-gradient-to-r from-purple-600/60 to-blue-500/60 items-center justify-evenly">
+            {/* <nav className="w-[90vw] mx-auto mt-4 h-16 rounded-xl flex flex-row  bg-gradient-to-r from-purple-600/60 to-blue-500/60 items-center justify-evenly">
                 
                 {clubs?(
                     
@@ -35,7 +35,7 @@ const ConfigureClubs = () => {
  
                 ):(<></>)}
 
-            </nav>
+            </nav> */}
 
             
 
@@ -45,11 +45,52 @@ const ConfigureClubs = () => {
         clubs.map((club, idx) => {
             console.log(club.devclub[0]);
             return (
-                <div key={idx}>
-                    <div>
-                        <img className='rounded-full w-48' src={club.devclub[0].President.Image} alt='President'/>
+                <div key={idx} className='bg-slate-200'>
+                    <h1 key={idx} className="text-2xl mb-16 text-center underline bg-black/10 cursor-pointer hover:text-sky-400 rounded-xl py-2 px-4 text-slate-500 font-bold">{club.devclub[0].Technology}</h1>
+                    
+                    <div className='flex flex-row justify-evenly '>
+                        <div className='flex flex-col items-center '>
+                            <button className='absolute right-16 mt-[-20px] text-xl bg-red-500 text-white px-4 py-2 rounded-2xl'>Sync</button>
+                        <img className=' rounded-full w-36 border border-gray-200' src={club.devclub[0].President.Image} alt='President'/>
+                        <h1 className='text-black text-xl text-center font-bold mt-4' >President</h1>
+                        <input className='text-black text-xl text-center border border-gray-200 font-medium mt-4' value={club.devclub[0].President.Name}/>
+                        </div>
+                        <div className='flex flex-col items-center '>
+                        <img className='rounded-full w-36 border border-gray-200' src={club.devclub[0].Vice_President.Image} alt='President'/>
+                        <h1 className='text-black text-xl text-center font-bold mt-4' >Vice-President</h1>
+                        <input className='text-black text-xl text-center border border-gray-200 font-medium mt-4' value={club.devclub[0].Vice_President.Name}/>
+                        </div>
                     </div>
+                    <div className='flex flex-row justify-evenly mt-16'>
+ 
+                    <div className='flex flex-col items-center '>
+                    <img className='rounded-full w-24 border border-gray-200' src={club.devclub[0].Core1.Image} alt='President'/>
+                    <h1 className='text-black text-xl text-center font-bold mt-4' >Core Member 1</h1>
+                    <input className='text-black text-xl text-center border border-gray-200 font-medium mt-4' value={club.devclub[0].Core1.Name}/>
+                    </div>
+                    <div className='flex flex-col items-center '>
+                    <img className='rounded-full w-24 border border-gray-200' src={club.devclub[0].Core2.Image} alt='President'/>
+                    <h1 className='text-black text-xl text-center font-bold mt-4' >Core Member 2</h1>
+                    <input className='text-black text-xl text-center border border-gray-200 font-medium mt-4' value={club.devclub[0].Core2.Name}/>
+                    </div>
+                    <div className='flex flex-col items-center '>
+                    <img className='rounded-full w-24 border border-gray-200' src={club.devclub[0].Core3.Image} alt='President'/>
+                    <h1 className='text-black text-xl text-center font-bold mt-4' >Core Member 3</h1>
+                    <input className='text-black text-xl text-center border border-gray-200 font-medium mt-4' value={club.devclub[0].Core3.Name}/>
+                    </div>
+                    <div className='flex flex-col items-center '>
+                    <img className='rounded-full w-24 border border-gray-200' src={club.devclub[0].Core4.Image} alt='President'/>
+                    <h1 className='text-black text-xl text-center font-bold mt-4' >Core Member 4</h1>
+                    <input className='text-black text-xl text-center border border-gray-200 font-medium mt-4' value={club.devclub[0].Core4.Name}/>
+
+                    </div>
+
+
+                    </div>
+                    <hr className='mt-8 mb-8'></hr>
+
                 </div>
+                
             );
         })
     ) : (
