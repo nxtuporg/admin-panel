@@ -76,8 +76,11 @@ export async function PUT(req) {
 export async function DELETE(req) {
   await dbConnect();
   try {
-    const { _id } = await req.json();
-    const deletedEvent = await eventsModel.findByIdAndDelete(_id);
+    // const { _id } = await req.json();
+    var url = new URL(req.url);
+    const deletedEvent = await eventsModel.findByIdAndDelete({
+      _id: url.searchParams.get("id"),
+    });
     if (!deletedEvent) {
       return NextResponse.json(
         { message: "Event not found", status: false },

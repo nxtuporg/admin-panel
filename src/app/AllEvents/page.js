@@ -18,6 +18,15 @@ const page = () => {
       }
     })();
   }, []);
+  var refreshData = async () => {
+    var { data: axres } = await axios.get("/api/events");
+    if (axres.status) {
+      setallEvents(axres.events);
+      // toast.success(axres.message);
+    } else {
+      toast.error(axres.message);
+    }
+  };
 
   return (
     <div className=" p-[2rem]">
@@ -52,6 +61,9 @@ const page = () => {
               <th scope="col" class="px-6 py-3">
                 Add Registration Form
               </th>
+              <th scope="col" class="px-6 py-3">
+                Delete Registration Form
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -65,7 +77,7 @@ const page = () => {
                     {el.name}
                   </th>
                   <td class="px-6 py-4">{el.day}</td>
-                  <td class="px-6 py-4">{el.Time}</td>
+                  <td class="px-6 py-4">{el.time}</td>
                   <td class="px-6 py-4">{el.address}</td>
                   <td class="px-6 py-4 line-clamp-1">{el.description}</td>
                   <td class="px-6 py-4">{el.type}</td>
@@ -76,6 +88,22 @@ const page = () => {
                     }}
                   >
                     ➕
+                  </td>
+                  <td
+                    class="px-6 py-4  cursor-pointer"
+                    onClick={async () => {
+                      var { data: axres } = await axios.delete(
+                        "/api/events?id=" + el._id
+                      );
+                      if (axres.status) {
+                        await refreshData();
+                        toast.success(axres.message);
+                      } else {
+                        toast.error(axres.message);
+                      }
+                    }}
+                  >
+                    🗑️
                   </td>
                 </tr>
               );

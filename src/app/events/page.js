@@ -5,8 +5,8 @@ import { useState, useEffect, useRef } from "react";
 const Events = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const quillRef = useRef(null);
-  const [inputs, setinputs] = useState({})
-  const [image, setImageUrl] = useState(null)
+  const [inputs, setinputs] = useState({ type: "CLAN" });
+  const [image, setImageUrl] = useState(null);
 
   useEffect(() => {
     const Quill = window.Quill;
@@ -46,7 +46,7 @@ const Events = () => {
   };
 
   const handleClick = () => {
-    console.log("inputs")
+    console.log("inputs");
 
     if (quillRef.current) {
       const delta = quillRef.current.getContents();
@@ -54,26 +54,22 @@ const Events = () => {
       console.log(markdown);
     }
 
-    const OurBody = { ...inputs, body: markdown, image }
-    console.log()
+    const OurBody = { ...inputs, body: markdown, image };
+    console.log();
     fetch("/api/events", {
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       method: "POST",
-      body: JSON.stringify(OurBody)  // Ensure OurBody is a valid object to be stringified
+      body: JSON.stringify(OurBody), // Ensure OurBody is a valid object to be stringified
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);  // Handle the response data here
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data); // Handle the response data here
       })
-      .catch(error => {
-        console.error('Error:', error);  // Handle any errors
+      .catch((error) => {
+        console.error("Error:", error); // Handle any errors
       });
-
-
-
-
   };
 
   const handleUploadClick = () => {
@@ -92,8 +88,8 @@ const Events = () => {
       "http://localhost:5500/api/uploadImage",
       form
     );
-    console.log(axres.filePath)
-    setImageUrl(axres.filePath)
+    console.log(axres.filePath);
+    setImageUrl(axres.filePath);
 
     // fetch('/api/imageupload', { method: 'POST', body:  });
   };
@@ -140,8 +136,8 @@ const Events = () => {
             <input
               type="text"
               value={inputs?.day || ""}
-              onChange={el => {
-                setinputs(prev => ({ ...prev, day: el.target?.value }))
+              onChange={(el) => {
+                setinputs((prev) => ({ ...prev, day: el.target?.value }));
               }}
               placeholder="Date"
               className="w-32 ml-5 p-3 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
@@ -151,8 +147,8 @@ const Events = () => {
               type="text"
               placeholder="Time"
               value={inputs?.time || ""}
-              onChange={el => {
-                setinputs(prev => ({ ...prev, time: el.target?.value }))
+              onChange={(el) => {
+                setinputs((prev) => ({ ...prev, time: el.target?.value }));
               }}
               className="w-32 ml-5 p-3 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
       focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
@@ -161,16 +157,20 @@ const Events = () => {
               type="text"
               placeholder="Location"
               value={inputs?.address || ""}
-              onChange={el => {
-                setinputs(prev => ({ ...prev, address: el.target?.value }))
+              onChange={(el) => {
+                setinputs((prev) => ({ ...prev, address: el.target?.value }));
               }}
               className="w-52 ml-5 p-3 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
       focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
             />
             <div className="flex flex-row">
-              <select value={inputs?.type || "CLAN"} className="w-20 ml-4" onChange={el => {
-                setinputs(prev => ({ ...prev, type: el.target?.value }))
-              }}>
+              <select
+                value={inputs?.type || "CLAN"}
+                className="w-20 ml-4"
+                onChange={(el) => {
+                  setinputs((prev) => ({ ...prev, type: el.target?.value }));
+                }}
+              >
                 <option value={"CLAN"}>CLAN</option>
                 <option value="CLUB">CLUB</option>
               </select>
@@ -193,8 +193,8 @@ const Events = () => {
             type="text"
             placeholder="Enter the title"
             value={inputs?.name || ""}
-            onChange={el => {
-              setinputs(prev => ({ ...prev, name: el.target?.value }))
+            onChange={(el) => {
+              setinputs((prev) => ({ ...prev, name: el.target?.value }));
             }}
             className="w-[96%] ml-5 p-3 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
       focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
@@ -202,8 +202,8 @@ const Events = () => {
           <textarea
             placeholder="Enter the short description"
             value={inputs?.description || ""}
-            onChange={el => {
-              setinputs(prev => ({ ...prev, description: el.target?.value }))
+            onChange={(el) => {
+              setinputs((prev) => ({ ...prev, description: el.target?.value }));
             }}
             className="w-[96%] ml-5 p-3 h-40 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
       focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
