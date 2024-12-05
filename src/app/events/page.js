@@ -94,7 +94,7 @@ const Events = () => {
     var form = new FormData();
     form.append("file", file);
     var { data: axres } = await axios.post(
-      "http://localhost:5500/api/uploadImage",
+      "https://backend-newton-product-non-admin-1.onrender.com/api/uploadImage",
       form
     );
     console.log(axres.filePath);
@@ -143,7 +143,7 @@ const Events = () => {
         <div className="md:p-6 mt-1 w-[90vw] sm:w-[75vw] flex flex-col justify-around mb-16 lg:mb-2 gap-6">
           <div className="flex flex-row flex-wrap gap-2">
             <input
-              type="text"
+              type="Date"
               value={inputs?.day || ""}
               onChange={(el) => {
                 setinputs((prev) => ({ ...prev, day: el.target?.value }));
@@ -153,7 +153,7 @@ const Events = () => {
       focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
             />
             <input
-              type="text"
+              type="time"
               placeholder="Time"
               value={inputs?.time || ""}
               onChange={(el) => {
@@ -175,7 +175,7 @@ const Events = () => {
             <div className="flex flex-row">
               <select
                 value={inputs?.type || "CLAN"}
-                className="w-20 ml-4"
+                className="w-20 ml-4 rounded-2xl"
                 onChange={(el) => {
                   setinputs((prev) => ({ ...prev, type: el.target?.value }));
                 }}
@@ -189,12 +189,12 @@ const Events = () => {
               >
                 Add
               </button>
-              <button
+              {/* <button
                 onClick={handleClick}
                 className="bg-purple-500 my-auto self-end right-28 absolute  mt-8 focus:bg-purple-500/90 hover:scale-95 md:mt-1 text-white w-20 h-10 rounded-xl font-semibold"
               >
                 Live it
-              </button>
+              </button> */}
             </div>
           </div>
 
