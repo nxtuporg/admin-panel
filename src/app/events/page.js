@@ -8,7 +8,6 @@ const Events = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const quillRef = useRef(null);
   const [inputs, setinputs] = useState({})
-  inputs.type = "CLAN";
   const [image, setImageUrl] = useState(null)
 
   const router = useRouter();

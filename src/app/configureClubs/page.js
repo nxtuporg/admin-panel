@@ -39,22 +39,24 @@ const ConfigureClubs = () => {
 
             
 
-        <div className='w-full justify-evenly '>
-            {clubs?(
-                clubs.map((club,idx)=>{
-                    console.log(club.devclub[0])
-                    return (
-                        <div key={idx}>
-                            <div>
-                                <img className='rounded-full w-48' src={club.devclub[0].President.Image}/>
-                                <img/>
-                            </div>
-                        </div>
-                    )
-                })
-            
-            ):(<></>)}
-        </div>
+            <div className='w-full justify-evenly'>
+    {clubs ? (
+
+        clubs.map((club, idx) => {
+            console.log(club.devclub[0]);
+            return (
+                <div key={idx}>
+                    <div>
+                        <img className='rounded-full w-48' src={club.devclub[0].President.Image} alt='President'/>
+                    </div>
+                </div>
+            );
+        })
+    ) : (
+
+        <></>
+    )}
+</div>
 
 
 
