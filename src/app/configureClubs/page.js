@@ -13,6 +13,7 @@ const ConfigureClubs = () => {
           );
           const data = await response.json();
           setClubs(data.data);
+        //   console.log(data.data)
         };
         fetchClubsData();
       }, []);
@@ -33,10 +34,12 @@ const ConfigureClubs = () => {
             
 
         <div className='w-full justify-evenly '>
-            {clubs?(<>
-                {/* <img src={clubs.devclub.President.Name} /> */}
+            {clubs?(
+                clubs.map((club)=>{
+                    console.log(club.devclub[0])
+                })
             
-            </>):(<></>)}
+            ):(<></>)}
         </div>
 
 
