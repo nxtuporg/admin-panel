@@ -6,8 +6,8 @@ import { useState, useEffect, useRef } from "react";
 const Events = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const quillRef = useRef(null);
-  const [inputs, setinputs] = useState({ type: 'CLAN' })
-  const [image, setImageUrl] = useState(null)
+  const [inputs, setinputs] = useState({ type: "CLAN" });
+  const [image, setImageUrl] = useState(null);
 
   const router = useRouter();
 
@@ -58,7 +58,7 @@ const Events = () => {
       console.log(markdown);
     }
 
-    const OurBody = { ...inputs, body: markdown, image };
+    var OurBody = { ...inputs, body: markdown, image };
     console.log();
     fetch("/api/events", {
       headers: {
@@ -181,7 +181,7 @@ const Events = () => {
               </select>
               <button
                 onClick={handleClick}
-                className={`${OurBody}  my-auto self-end right-4 absolute mt-8 focus:bg-purple-500/90 hover:scale-95    md:mt-1 text-white w-20 h-10 rounded-xl font-semibold `}
+                className={`bg-purple-500/90 my-auto self-end right-4 absolute mt-8 focus:bg-purple-500/90 hover:scale-95    md:mt-1 text-white w-20 h-10 rounded-xl font-semibold `}
               >
                 Add
               </button>

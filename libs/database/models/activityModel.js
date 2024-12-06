@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const eventSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -37,18 +36,15 @@ const eventSchema = new mongoose.Schema({
     type: Object,
     required: false,
   },
-  clubs: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Club",
-    },
-  ],
-  clans: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Clans",
-    },
-  ],
+  Activated: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  ActivatedForCarousel: {
+    type: Boolean,
+    required: false,
+  },
 });
 
 module.exports =

@@ -21,16 +21,15 @@ export async function POST(req) {
     }
     const event = new eventsModel(eventData); // Create a new event instance
     await event.save(); // Save the event to the database
-    
+
     return NextResponse.json(
       {
         message: "Event created",
         status: true,
-        id: event._id // Access the _id directly from the saved object
+        id: event._id, // Access the _id directly from the saved object
       },
       { status: 200 }
     );
-    
   } catch (error) {
     return NextResponse.json(
       { message: error.message, status: false },
@@ -42,7 +41,13 @@ export async function POST(req) {
 export async function GET(req) {
   await dbConnect();
   try {
-    const events = await eventsModel.find();
+    var url = new URL(req?.url);
+    var events;
+    if (url.searchParams.get("id")) {
+      events = await eventsModel.findById(url.searchParams.get("id"));
+    } else {
+      events = await eventsModel.find();
+    }
     // console.log(events);
     return NextResponse.json({ events, status: true }, { status: 200 });
   } catch (error) {
@@ -57,9 +62,13 @@ export async function PUT(req) {
   await dbConnect();
   try {
     const eventData = await req.json();
+    // console.log(eventData);
     var updatedEvent;
-    for (const el of Object.keys(eventData)) {
-      await eventsModel.findByIdAndUpdate(el, eventData[el], {
+    for (const el of eventData.events) {
+      const id = el.id;
+      delete el["id"];
+      console.log(id, el);
+      await eventsModel.findByIdAndUpdate(id, el, {
         new: true,
       });
     }
@@ -109,4 +118,3 @@ export async function DELETE(req) {
     );
   }
 }
-

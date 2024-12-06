@@ -1,20 +1,20 @@
 import { NextResponse } from "next/server";
-import eventsModel, { off } from "../../../../libs/database/models/eventsModel";
 import dbConnect from "../../../../libs/database/dbconnect";
-// import eventsModel from "@/models/eventsModel";
+import activityModel from "../../../../libs/database/models/activityModel";
+// import activityModel from "@/models/eventsModel";
 
 export async function POST(req) {
   await dbConnect();
   try {
     const eventData = await req.json();
-    if (eventData.type == "activation") {
-      var curevent = await eventsModel.findById(eventData.id);
+    if (eventData?.type == "activation") {
+      var curevent = await activityModel.findById(eventData.id);
       if (
         (curevent?.registrationForm?.sequence &&
           curevent?.registrationForm?.sequence[0]) ||
         curevent.Activated
       ) {
-        await eventsModel.findByIdAndUpdate(eventData.id, {
+        await activityModel.findByIdAndUpdate(eventData.id, {
           Activated: !curevent.Activated,
         });
         return NextResponse.json(
@@ -27,14 +27,14 @@ export async function POST(req) {
           { status: 200 }
         );
       }
-    } else if (eventData.type == "bannerActive") {
-      var curevent = await eventsModel.findById(eventData.id);
+    } else if (eventData?.type == "bannerActive") {
+      var curevent = await activityModel.findById(eventData.id);
       if (
         (curevent?.registrationForm?.sequence &&
           curevent?.registrationForm?.sequence[0]) ||
         curevent.ActivatedForCarousel
       ) {
-        await eventsModel.findByIdAndUpdate(eventData.id, {
+        await activityModel.findByIdAndUpdate(eventData.id, {
           ActivatedForCarousel: !curevent.ActivatedForCarousel,
         });
         return NextResponse.json(
@@ -60,7 +60,7 @@ export async function POST(req) {
 // export async function GET(req) {
 //   await dbConnect();
 //   try {
-//     const events = await eventsModel.find();
+//     const events = await activityModel.find();
 //     // console.log(events);
 //     return NextResponse.json({ events, status: true }, { status: 200 });
 //   } catch (error) {
@@ -77,7 +77,7 @@ export async function POST(req) {
 //     const eventData = await req.json();
 //     var updatedEvent;
 //     for (const el of Object.keys(eventData)) {
-//       await eventsModel.findByIdAndUpdate(el, eventData[el], {
+//       await activityModel.findByIdAndUpdate(el, eventData[el], {
 //         new: true,
 //       });
 //     }
@@ -107,7 +107,7 @@ export async function POST(req) {
 //   try {
 //     // const { _id } = await req.json();
 //     var url = new URL(req.url);
-//     const deletedEvent = await eventsModel.findByIdAndDelete({
+//     const deletedEvent = await activityModel.findByIdAndDelete({
 //       _id: url.searchParams.get("id"),
 //     });
 //     if (!deletedEvent) {

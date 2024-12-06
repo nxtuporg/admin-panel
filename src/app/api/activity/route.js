@@ -34,8 +34,13 @@ export async function POST(req) {
 export async function GET(req) {
   await dbConnect();
   try {
-    const activities = await activityModel.find();
-    console.log(activities);
+    var url = new URL(req?.url);
+    var activities;
+    if (url.searchParams.get("id")) {
+      activities = await activityModel.findById(url.searchParams.get("id"));
+    } else {
+      activities = await activityModel.find();
+    }
     return NextResponse.json({ activities, status: true }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
@@ -50,8 +55,11 @@ export async function PUT(req) {
   try {
     const eventData = await req.json();
     var updatedEvent;
-    for (const el of Object.keys(eventData)) {
-      await activityModel.findByIdAndUpdate(el, eventData[el], {
+    for (const el of eventData.events) {
+      const id = el.id;
+      delete el["id"];
+      //   console.log(id, el);
+      await activityModel.findByIdAndUpdate(id, el, {
         new: true,
       });
     }

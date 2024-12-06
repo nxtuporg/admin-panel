@@ -1,15 +1,30 @@
 import { NextResponse } from "next/server";
 import dbConnect from "../../../../libs/database/dbconnect";
 import eventsModel from "../../../../libs/database/models/eventsModel";
+import activityModel from "../../../../libs/database/models/activityModel";
 
 export async function POST(req) {
   await dbConnect();
 
   try {
+    var url = new URL(req.url);
+    // console.log(url);
+    var type = url.searchParams.get("type");
+    if (!type) {
+      return NextResponse.json(
+        { message: "Error Occured!", status: false },
+        { status: 400 }
+      );
+    }
     const data = await req.json();
     if (!data.id) {
       return NextResponse.json(
-        { message: "Events/Activity have not added properly.", status: false },
+        {
+          message: `${
+            type == "AllActivities" ? "Activity" : "Event"
+          } have not added properly.`,
+          status: false,
+        },
         { status: 400 }
       );
     }
@@ -19,10 +34,16 @@ export async function POST(req) {
         { status: 400 }
       );
     }
-
-    const newItem = await eventsModel.findByIdAndUpdate(data.id, {
-      registrationForm: data,
-    });
+    var newItem;
+    if (type == "AllActivities") {
+      newItem = await activityModel.findByIdAndUpdate(data.id, {
+        registrationForm: data,
+      });
+    } else {
+      newItem = await eventsModel.findByIdAndUpdate(data.id, {
+        registrationForm: data,
+      });
+    }
 
     // await newItem.save();
 
