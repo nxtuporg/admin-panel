@@ -65,15 +65,15 @@ const Events = () => {
         "Content-Type": "application/json",
       },
       method: "POST",
-      body: JSON.stringify(OurBody), // Ensure OurBody is a valid object to be stringified
+      body: JSON.stringify(OurBody),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data); // Handle the response data here
+        console.log(data);
         router.replace(`/events/Register?id=${data.id}&type=AllEvents`);
       })
       .catch((error) => {
-        console.error("Error:", error); // Handle any errors
+        console.error("Error:", error);
       });
   };
 
