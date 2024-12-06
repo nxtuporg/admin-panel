@@ -6,8 +6,8 @@ import { useState, useEffect, useRef } from "react";
 const Events = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const quillRef = useRef(null);
-  const [inputs, setinputs] = useState({ type: "CLAN" });
-  const [image, setImageUrl] = useState(null);
+  const [inputs, setinputs] = useState({ type: 'CLAN' })
+  const [image, setImageUrl] = useState(null)
 
   const router = useRouter();
 
@@ -145,7 +145,7 @@ const Events = () => {
                 setinputs((prev) => ({ ...prev, day: el.target?.value }));
               }}
               placeholder="Date"
-              className="w-32 ml-5 p-3 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
+              className="w-36 ml-5 p-3 rounded-lg border border-gray-300 shadow-md bg-white text-gray-700 placeholder-gray-400
       focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-500 hover:shadow-lg transition-all"
             />
             <input
@@ -181,7 +181,7 @@ const Events = () => {
               </select>
               <button
                 onClick={handleClick}
-                className="bg-purple-500 my-auto self-end right-4 absolute mt-8 focus:bg-purple-500/90 hover:scale-95 md:mt-1 text-white w-20 h-10 rounded-xl font-semibold"
+                className={`${OurBody}  my-auto self-end right-4 absolute mt-8 focus:bg-purple-500/90 hover:scale-95    md:mt-1 text-white w-20 h-10 rounded-xl font-semibold `}
               >
                 Add
               </button>

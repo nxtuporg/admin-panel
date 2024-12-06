@@ -16,21 +16,28 @@ const Register = () => {
     // console.log(eventid);
     //for the api part
   }, []);
+  function deleteInput(id) {
+    setalluserComponents((prev) => prev.filter((el) => el.currentId !== id));
+  }
   async function submitRegisterForm() {
     var id = searchParams.get("id");
     var type = searchParams.get("type");
     // console.log(id, title, desc, alluserComponents);
-    var { data: axres } = await axios.post("/api/addRegistrationForm", {
-      id,
-      title,
-      description: desc,
-      sequence: alluserComponents,
-    });
-    if (axres.status) {
-      toast.success(axres.message);
-      router.push("/" + (type || "AllEvents"));
-    } else {
-      toast.error(axres.message);
+    try {
+      var { data: axres } = await axios.post("/api/addRegistrationForm", {
+        id,
+        title,
+        description: desc,
+        sequence: alluserComponents,
+      });
+      if (axres.status) {
+        toast.success(axres.message);
+        router.push("/" + (type || "AllEvents"));
+      } else {
+        toast.error(axres.message);
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   }
 
@@ -82,43 +89,61 @@ const Register = () => {
               if (el.type == "Text") {
                 return (
                   <>
-                    <div className="flex flex-col gap-[0.5rem] py-[0.5rem]">
-                      {/* <h3
+                    <div className="flex gap-[1rem] items-end">
+                      <div className="flex flex-col gap-[0rem] py-[0.5rem]">
+                        {/* <h3
                       contentEditable
                       className="w-[26rem] outline-none focus:border-white focus:outline-[1px] focus:outline-solid focus:outline-white pr-[0.5rem] rounded-sm"
                     >
                       {el?.inputName}
                     </h3> */}
-                      <input
-                        type="text"
-                        placeholder={el?.inputName}
-                        value={el?.inputName || ""}
-                        onChange={(curel) => {
-                          setalluserComponents((prev) =>
-                            prev.map((ell) =>
-                              ell.currentId == el.currentId
-                                ? { ...ell, inputName: curel.target.value }
-                                : ell
-                            )
-                          );
-                        }}
-                        className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
-                      />
-                      <input
-                        type="text"
-                        placeholder={el?.placeholder}
-                        value={el?.placeholder || ""}
-                        onChange={(curel) => {
-                          setalluserComponents((prev) =>
-                            prev.map((ell) =>
-                              ell.currentId == el.currentId
-                                ? { ...ell, placeholder: curel.target.value }
-                                : ell
-                            )
-                          );
-                        }}
-                        className="py-[0.5rem] px-[1rem] text-black w-[26rem] rounded-md"
-                      />
+                        <input
+                          type="text"
+                          placeholder={el?.inputName}
+                          value={el?.inputName || ""}
+                          onChange={(curel) => {
+                            setalluserComponents((prev) =>
+                              prev.map((ell) =>
+                                ell.currentId == el.currentId
+                                  ? { ...ell, inputName: curel.target.value }
+                                  : ell
+                              )
+                            );
+                          }}
+                          className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
+                        />
+                        <div className="flex gap-[0.5rem] justify-center items-center">
+                          <input
+                            type="text"
+                            // placeholder={el?.placeholder}
+                            value={el?.placeholder || ""}
+                            placeholder="Text Placeholder (Editable)"
+                            onChange={(curel) => {
+                              setalluserComponents((prev) =>
+                                prev.map((ell) =>
+                                  ell.currentId == el.currentId
+                                    ? {
+                                        ...ell,
+                                        placeholder: curel.target.value,
+                                      }
+                                    : ell
+                                )
+                              );
+                            }}
+                            className="py-[0.5rem] px-[1rem] text-black w-[26rem] rounded-md"
+                          />
+                          <div
+                            onClick={() => deleteInput(el?.currentId)}
+                            className="/bg-red-700 hover:scale-110 cursor-pointer rounded-full /w-[3rem] flex items-center justify-center /h-[3rem] p-[0.5rem] transition-all duration-200"
+                          >
+                            <img
+                              src="/bin.png"
+                              className="w-[2.5rem] /mb-[0.2rem] "
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div></div>
                     </div>
                   </>
                 );
@@ -147,29 +172,39 @@ const Register = () => {
                         }}
                         className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
                       />
-                      <div className="flex gap-[0.5rem]">
-                        <textarea
-                          type="text"
-                          value={el?.placeholder || ""}
-                          onChange={(curel) => {
-                            setalluserComponents((prev) =>
-                              prev.map((ell) =>
-                                ell.currentId == el.currentId
-                                  ? {
-                                      ...ell,
-                                      placeholder: curel.target.value.includes(
-                                        ","
-                                      )
-                                        ? curel.target.value.split(",")
-                                        : [curel.target.value],
-                                    }
-                                  : ell
-                              )
-                            );
-                          }}
-                          className=" text-black  rounded-md w-[26rem] px-[1rem] py-[0.5rem]"
-                          placeholder="Radio button values (',' seperated values)"
-                        />
+                      <div className="flex gap-[0.5rem] justify-center items-center">
+                        <div className="flex gap-[0.5rem]">
+                          <textarea
+                            type="text"
+                            value={el?.placeholder || ""}
+                            onChange={(curel) => {
+                              setalluserComponents((prev) =>
+                                prev.map((ell) =>
+                                  ell.currentId == el.currentId
+                                    ? {
+                                        ...ell,
+                                        placeholder:
+                                          curel.target.value.includes(",")
+                                            ? curel.target.value.split(",")
+                                            : [curel.target.value],
+                                      }
+                                    : ell
+                                )
+                              );
+                            }}
+                            className=" text-black  rounded-md w-[26rem] px-[1rem] py-[0.5rem]"
+                            placeholder="Radio button values (',' seperated values)"
+                          />
+                        </div>
+                        <div
+                          onClick={() => deleteInput(el?.currentId)}
+                          className="/bg-red-700 hover:scale-110 cursor-pointer rounded-full /w-[3rem] flex items-center justify-center /h-[3rem] p-[0.5rem] transition-all duration-200"
+                        >
+                          <img
+                            src="/bin.png"
+                            className="w-[2.5rem] /mb-[0.2rem] "
+                          />
+                        </div>
                       </div>
                     </div>
                   </>
@@ -195,29 +230,39 @@ const Register = () => {
                         }}
                         className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
                       />
-                      <div className="flex gap-[0.5rem]">
-                        <textarea
-                          type="text"
-                          value={el?.placeholder || ""}
-                          onChange={(curel) => {
-                            setalluserComponents((prev) =>
-                              prev.map((ell) =>
-                                ell.currentId == el.currentId
-                                  ? {
-                                      ...ell,
-                                      placeholder: curel.target.value.includes(
-                                        ","
-                                      )
-                                        ? curel.target.value.split(",")
-                                        : [curel.target.value],
-                                    }
-                                  : ell
-                              )
-                            );
-                          }}
-                          className=" text-black  rounded-md w-[26rem] px-[1rem] py-[0.5rem]"
-                          placeholder="Select option values (',' seperated values)"
-                        />
+                      <div className="flex gap-[0.5rem] justify-center items-center">
+                        <div className="flex gap-[0.5rem]">
+                          <textarea
+                            type="text"
+                            value={el?.placeholder || ""}
+                            onChange={(curel) => {
+                              setalluserComponents((prev) =>
+                                prev.map((ell) =>
+                                  ell.currentId == el.currentId
+                                    ? {
+                                        ...ell,
+                                        placeholder:
+                                          curel.target.value.includes(",")
+                                            ? curel.target.value.split(",")
+                                            : [curel.target.value],
+                                      }
+                                    : ell
+                                )
+                              );
+                            }}
+                            className=" text-black  rounded-md w-[26rem] px-[1rem] py-[0.5rem]"
+                            placeholder="Select option values (',' seperated values)"
+                          />
+                        </div>
+                        <div
+                          onClick={() => deleteInput(el?.currentId)}
+                          className="/bg-red-700 hover:scale-110 cursor-pointer rounded-full /w-[3rem] flex items-center justify-center /h-[3rem] p-[0.5rem] transition-all duration-200"
+                        >
+                          <img
+                            src="/bin.png"
+                            className="w-[2.5rem] /mb-[0.2rem] "
+                          />
+                        </div>
                       </div>
                     </div>
                   </>
@@ -243,29 +288,39 @@ const Register = () => {
                         }}
                         className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
                       />
-                      <div className="flex gap-[0.5rem]">
-                        <textarea
-                          type="text"
-                          className="text-black rounded-md w-[26rem] px-[1rem] py-[0.5rem]"
-                          // placeholder="Checkbox option values (',' seperated values)"
-                          value={el?.placeholder || ""}
-                          onChange={(curel) => {
-                            setalluserComponents((prev) =>
-                              prev.map((ell) =>
-                                ell.currentId == el.currentId
-                                  ? {
-                                      ...ell,
-                                      placeholder: curel.target.value.includes(
-                                        ","
-                                      )
-                                        ? curel.target.value.split(",")
-                                        : [curel.target.value],
-                                    }
-                                  : ell
-                              )
-                            );
-                          }}
-                        />
+                      <div className="flex gap-[0.5rem] justify-center items-center">
+                        <div className="flex gap-[0.5rem]">
+                          <textarea
+                            type="text"
+                            className="text-black rounded-md w-[26rem] px-[1rem] py-[0.5rem]"
+                            placeholder="Checkbox option values (',' seperated values)"
+                            value={el?.placeholder || ""}
+                            onChange={(curel) => {
+                              setalluserComponents((prev) =>
+                                prev.map((ell) =>
+                                  ell.currentId == el.currentId
+                                    ? {
+                                        ...ell,
+                                        placeholder:
+                                          curel.target.value.includes(",")
+                                            ? curel.target.value.split(",")
+                                            : [curel.target.value],
+                                      }
+                                    : ell
+                                )
+                              );
+                            }}
+                          />
+                        </div>
+                        <div
+                          onClick={() => deleteInput(el?.currentId)}
+                          className="/bg-red-700 hover:scale-110 cursor-pointer rounded-full /w-[3rem] flex items-center justify-center /h-[3rem] p-[0.5rem] transition-all duration-200"
+                        >
+                          <img
+                            src="/bin.png"
+                            className="w-[2.5rem] /mb-[0.2rem] "
+                          />
+                        </div>
                       </div>
                     </div>
                   </>
@@ -295,7 +350,7 @@ const Register = () => {
               {
                 type: "Text",
                 inputName: "Example Text input title (Editable)",
-                placeholder: "Text Placeholder (Editable)",
+                // placeholder: "Text Placeholder (Editable)",
                 currentId: Math.random() * 99999,
               },
               {
@@ -306,13 +361,13 @@ const Register = () => {
               {
                 type: "Select",
                 inputName: "Example Select input title (Editable)",
-                placeholder: "Select option values (',' seperated values)",
+                // placeholder: "Select option values (',' seperated values)",
                 currentId: Math.random() * 99999,
               },
               {
                 type: "Checkbox",
                 inputName: "Example Checkbox input title (Editable)",
-                placeholder: "Checkbox option values (',' seperated values)",
+                // placeholder: "Checkbox option values (',' seperated values)",
                 currentId: Math.random() * 99999,
               },
             ].map((el) => (
