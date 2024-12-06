@@ -61,12 +61,12 @@ const Home = () => {
             button: "Add Event",
             link: "/events",
           },
-          {
-            title: "Configure Club Details",
-            desc: `Customize your club profile by updating details like club name, purpose, and mission. Add a compelling description to attract more members and make your club stand out`,
-            button: "Change Club Details",
-            link: "/configureclub",
-          },
+          // {
+          //   title: "Configure Club Details",
+          //   desc: `Customize your club profile by updating details like club name, purpose, and mission. Add a compelling description to attract more members and make your club stand out`,
+          //   button: "Change Club Details",
+          //   link: "/configureclub",
+          // },
           // {
           //   title: "Configure Clan Details",
           //   desc: `Lorem Ipsum is simply dummy text of the printing and typesetting
