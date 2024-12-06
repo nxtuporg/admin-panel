@@ -1,11 +1,11 @@
 "use client";
 
 import axios from "axios";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 const Register = () => {
-  // var router = useRouter();
+  var router = useRouter();
   // var params = useParams();
   const searchParams = useSearchParams();
   const [title, settitle] = useState("");
@@ -16,10 +16,11 @@ const Register = () => {
     // console.log(eventid);
     //for the api part
   }, []);
-  function submitRegisterForm() {
+  async function submitRegisterForm() {
     var id = searchParams.get("id");
+    var type = searchParams.get("type");
     // console.log(id, title, desc, alluserComponents);
-    var { data: axres } = axios.post("/api/addRegistrationForm", {
+    var { data: axres } = await axios.post("/api/addRegistrationForm", {
       id,
       title,
       description: desc,
@@ -27,6 +28,7 @@ const Register = () => {
     });
     if (axres.status) {
       toast.success(axres.message);
+      router.push("/" + (type || "AllEvents"));
     } else {
       toast.error(axres.message);
     }
@@ -80,43 +82,45 @@ const Register = () => {
               if (el.type == "Text") {
                 return (
                   <>
-                    <div className="flex flex-col gap-[0.5rem] py-[0.5rem]">
-                      {/* <h3
+                    <div>
+                      <div className="flex flex-col gap-[0.5rem] py-[0.5rem]">
+                        {/* <h3
                       contentEditable
                       className="w-[26rem] outline-none focus:border-white focus:outline-[1px] focus:outline-solid focus:outline-white pr-[0.5rem] rounded-sm"
                     >
                       {el?.inputName}
                     </h3> */}
-                      <input
-                        type="text"
-                        placeholder={el?.inputName}
-                        value={el?.inputName || ""}
-                        onChange={(curel) => {
-                          setalluserComponents((prev) =>
-                            prev.map((ell) =>
-                              ell.currentId == el.currentId
-                                ? { ...ell, inputName: curel.target.value }
-                                : ell
-                            )
-                          );
-                        }}
-                        className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
-                      />
-                      <input
-                        type="text"
-                        placeholder={el?.placeholder}
-                        value={el?.placeholder || ""}
-                        onChange={(curel) => {
-                          setalluserComponents((prev) =>
-                            prev.map((ell) =>
-                              ell.currentId == el.currentId
-                                ? { ...ell, placeholder: curel.target.value }
-                                : ell
-                            )
-                          );
-                        }}
-                        className="py-[0.5rem] px-[1rem] text-black w-[26rem] rounded-md"
-                      />
+                        <input
+                          type="text"
+                          placeholder={el?.inputName}
+                          value={el?.inputName || ""}
+                          onChange={(curel) => {
+                            setalluserComponents((prev) =>
+                              prev.map((ell) =>
+                                ell.currentId == el.currentId
+                                  ? { ...ell, inputName: curel.target.value }
+                                  : ell
+                              )
+                            );
+                          }}
+                          className="/py-[0.5rem] /px-[1rem] pl-[0.2rem] text-white w-[26rem] rounded-md bg-black"
+                        />
+                        <input
+                          type="text"
+                          placeholder={el?.placeholder}
+                          value={el?.placeholder || ""}
+                          onChange={(curel) => {
+                            setalluserComponents((prev) =>
+                              prev.map((ell) =>
+                                ell.currentId == el.currentId
+                                  ? { ...ell, placeholder: curel.target.value }
+                                  : ell
+                              )
+                            );
+                          }}
+                          className="py-[0.5rem] px-[1rem] text-black w-[26rem] rounded-md"
+                        />
+                      </div>
                     </div>
                   </>
                 );

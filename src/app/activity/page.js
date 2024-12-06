@@ -59,8 +59,8 @@ const Events = () => {
     }
 
     const OurBody = { ...inputs, body: markdown, image };
-    console.log();
-    fetch("/api/events", {
+    // console.log();
+    fetch("/api/activity", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -70,8 +70,7 @@ const Events = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data); // Handle the response data here
-
-        router.replace(`/events/Register?id=${data.id}`);
+        router.replace(`/events/Register?id=${data.id}&type=AllActivities`);
       })
       .catch((error) => {
         console.error("Error:", error); // Handle any errors

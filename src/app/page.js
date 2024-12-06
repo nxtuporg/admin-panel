@@ -51,29 +51,21 @@ const Home = () => {
         {[
           {
             title: "Add Activities",
-            desc: `Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently`,
+            desc: `Plan exciting activities for your club members! Examples include workshops, game nights, and skill development sessions. Add all details like time, location, and participants to keep everything organized.`,
             button: "Add Activity",
             link: "/activity",
           },
           {
             title: "Event details",
-            desc: `Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently`,
+            desc: `Host engaging events like annual meetups, competitions, or networking sessions. Include a detailed description, date, time, venue, and key highlights for better visibility.`,
             button: "Add Event",
             link: "/events",
+          },
+          {
+            title: "Configure Club Details",
+            desc: `Customize your club profile by updating details like club name, purpose, and mission. Add a compelling description to attract more members and make your club stand out`,
+            button: "Change Club Details",
+            link: "/configureclub",
           },
           // {
           //   title: "Configure Clan Details",
@@ -90,45 +82,31 @@ const Home = () => {
           // },
           {
             title: "Make a registration form",
-            desc: `Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently`,
+            desc: `Create registration forms for your upcoming events. Fields may include participant names, email addresses, phone numbers, and dietary preferences to streamline the sign-up process.`,
             button: "Create a event registration form",
             link: "/events/Register",
           },
           {
             title: "Add a new admin user",
-            desc: `Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently`,
+            desc: `Empower your team by adding new admin users who can manage events, approve memberships, and oversee club operations. Assign different roles and permissions as needed.`,
             button: "Create a new Admin User",
             link: "/register",
           },
           {
             title: "All Admin Users",
-            desc: `All Admin Users Configutaion`,
+            desc: `View and manage all the admins in your club. Update their roles, permissions, and contact details to ensure accountability and effectiveness`,
             button: "All Admins",
             link: "/AllAdminUsers",
           },
           {
             title: "Events",
-            desc: `All Events configuration`,
+            desc: `Access and modify details for all your club’s events. Update schedules, change venues, or cancel events with ease`,
             button: "All Events",
             link: "/AllEvents",
           },
           {
             title: "Activities",
-            desc: `All Activities configuration`,
+            desc: `Manage all club activities in one place. Track schedules, participant lists, and outcomes to ensure success in every initiative.`,
             button: "All Activities",
             link: "/AllActivities",
           },
