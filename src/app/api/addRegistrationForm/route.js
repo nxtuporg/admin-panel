@@ -7,6 +7,12 @@ export async function POST(req) {
 
   try {
     const data = await req.json();
+    if (!data.id) {
+      return NextResponse.json(
+        { message: "Events/Activity have not added properly.", status: false },
+        { status: 400 }
+      );
+    }
     if (!data.id || !data.title || !data.description) {
       return NextResponse.json(
         { message: "Missing required fields", status: false },

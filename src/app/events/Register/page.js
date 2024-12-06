@@ -23,17 +23,21 @@ const Register = () => {
     var id = searchParams.get("id");
     var type = searchParams.get("type");
     // console.log(id, title, desc, alluserComponents);
-    var { data: axres } = await axios.post("/api/addRegistrationForm", {
-      id,
-      title,
-      description: desc,
-      sequence: alluserComponents,
-    });
-    if (axres.status) {
-      toast.success(axres.message);
-      router.push("/" + (type || "AllEvents"));
-    } else {
-      toast.error(axres.message);
+    try {
+      var { data: axres } = await axios.post("/api/addRegistrationForm", {
+        id,
+        title,
+        description: desc,
+        sequence: alluserComponents,
+      });
+      if (axres.status) {
+        toast.success(axres.message);
+        router.push("/" + (type || "AllEvents"));
+      } else {
+        toast.error(axres.message);
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   }
 
